@@ -1,0 +1,130 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Controller;
+
+import Controller.exceptions.IllegalOrphanException;
+import Controller.exceptions.NonexistentEntityException;
+import Controller.exceptions.RollbackFailureException;
+import java.io.Serializable;
+import Model.Professor;
+import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
+
+/**
+ *
+ * @author Henrique
+ */
+public class ProfessorJpaController implements Serializable {
+
+    private final static EntityManagerFactory EMF = Persistence.createEntityManagerFactory("AcademicPU");
+
+    public EntityManager getEntityManager() {
+        return EMF.createEntityManager();
+    }
+
+    public void create(Professor professor) throws RollbackFailureException, Exception {
+        EntityManager em = null;
+        EntityTransaction et = null;
+
+        try {
+            em = EMF.createEntityManager();
+            et = em.getTransaction();
+
+            et.begin();
+            em.persist(professor);
+            et.commit();
+        } catch (Exception ex) {
+            if (et != null && et.isActive()) {
+                et.rollback();
+            }
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+    }
+
+    public void edit(Professor professor) throws IllegalOrphanException, NonexistentEntityException, RollbackFailureException, Exception {
+        EntityManager em = null;
+        EntityTransaction et = null;
+
+        try {
+            em = EMF.createEntityManager();
+            et = em.getTransaction();
+
+            et.begin();
+            em.merge(professor);
+            et.commit();
+        } catch (Exception ex) {
+            if (et != null && et.isActive()) {
+                et.rollback();
+            }
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+    }
+
+    public void destroy(Professor professor) throws IllegalOrphanException, NonexistentEntityException, RollbackFailureException, Exception {
+        EntityManager em = null;
+        EntityTransaction et = null;
+
+        try {
+            em = EMF.createEntityManager();
+            et = em.getTransaction();
+
+            Professor professorRemove = em.merge(professor);
+
+            et.begin();
+            em.remove(professorRemove);
+            et.commit();
+        } catch (Exception ex) {
+            if (et != null && et.isActive()) {
+                et.rollback();
+            }
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+    }
+
+    public boolean findProfessor(String Siape, String Senha) {
+        EntityManager em = getEntityManager();
+        
+        TypedQuery<Professor> query = em.createQuery(
+                "SELECT a FROM Professor a WHERE a.siape LIKE :siape AND a.senha LIKE :senha", Professor.class);
+        query.setParameter("Siape", Siape);
+        query.setParameter("senha", Senha);
+        
+        List<Professor> alunos = query.getResultList();
+        em.close();
+        return !alunos.isEmpty();
+
+    }
+    
+    public Professor verificaLogin(Professor usuario){
+        Professor usuarioEncontrado;
+        EntityManager em = getEntityManager();
+        
+        String hql = "from Professor u where u.nome = '" + usuario.getNome() + "' and u.senha = '" + usuario.getSenha() + "' ";
+        Query query = em.createQuery(hql);
+        
+        usuarioEncontrado = (Professor) query.getSingleResult();
+        
+        if(usuarioEncontrado != null){
+            return usuarioEncontrado;
+        } 
+        
+        return usuarioEncontrado;
+    }
+}

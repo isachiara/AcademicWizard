@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="AcademicPU" transaction-type="JTA">
+    <jta-data-source>java:app/AcademicWizard</jta-data-source>
+    <class>Model.Administrador</class>
+    <class>Model.Aluno</class>
+    <class>Model.Disciplina</class>
+    <class>Model.DisciplinaHasAluno</class>
+    <class>Model.Enderecoaluno</class>
+    <class>Model.Enderecoprofessor</class>
+    <class>Model.Professor</class>
+    <class>Model.Telefoneadministrador</class>
+    <class>Model.Telefonealuno</class>
+    <class>Model.Telefoneprofessor</class>
+    <exclude-unlisted-classes>true</exclude-unlisted-classes>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/academic_db?zeroDateTimeBehavior=convertToNull"/>
+      <property name="javax.persistence.jdbc.user" value="root"/>
+      <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+      <property name="javax.persistence.jdbc.password" value="root"/>
+      <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
+    </properties>
+  </persistence-unit>
+</persistence>
