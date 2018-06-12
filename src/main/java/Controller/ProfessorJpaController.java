@@ -103,13 +103,35 @@ public class ProfessorJpaController implements Serializable {
         
         TypedQuery<Professor> query = em.createQuery(
                 "SELECT a FROM Professor a WHERE a.siape LIKE :siape AND a.senha LIKE :senha", Professor.class);
-        query.setParameter("Siape", Siape);
+        query.setParameter("siape", Siape);
         query.setParameter("senha", Senha);
         
         List<Professor> alunos = query.getResultList();
         em.close();
         return !alunos.isEmpty();
 
+    }
+    public List<Professor> findProfessor(String Siape) {
+        EntityManager em = getEntityManager();
+        
+        TypedQuery<Professor> query = em.createQuery(
+                "SELECT a FROM Professor a WHERE a.siape LIKE :siape", Professor.class);
+        query.setParameter("siape", Siape);
+        
+        List<Professor> professor = query.getResultList();
+        em.close();
+        return professor;
+
+    }
+    public List<Professor> getAllProfessores(){
+        EntityManager em = getEntityManager();
+        
+        TypedQuery<Professor> query = em.createQuery(
+                "SELECT p FROM Professor p", Professor.class);
+        List<Professor> professores = query.getResultList();
+        
+        em.close();
+        return professores;
     }
     
     public Professor verificaLogin(Professor usuario){

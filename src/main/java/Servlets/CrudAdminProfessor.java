@@ -1,19 +1,18 @@
-package Servlets;
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-import Controller.AdministradorJpaController;
-import Controller.AlunoJpaController;
-import Controller.EnderecoalunoJpaController;
-import Controller.TelefonealunoJpaController;
-import Model.Administrador;
-import Model.Aluno;
-import Model.Enderecoaluno;
-import Model.Telefonealuno;
+package Servlets;
+
+import Controller.EnderecoprofessorJpaController;
+import Controller.ProfessorJpaController;
+import Controller.TelefoneprofessorJpaController;
+import Model.Enderecoprofessor;
+import Model.Professor;
+import Model.Telefoneprofessor;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -24,9 +23,9 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Henrique
+ * @author Edu
  */
-public class CrudAdmin extends HttpServlet {
+public class CrudAdminProfessor extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,7 +37,7 @@ public class CrudAdmin extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, Exception {
+            throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
     }
@@ -55,17 +54,7 @@ public class CrudAdmin extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Administrador adm = new Administrador();
-        AdministradorJpaController admControl = new AdministradorJpaController();
-        adm.setNome("nome");
-        adm.setSenha("adm");
-        adm.setUsuario("admin");
-
-        try {
-            admControl.create(adm);
-        } catch (Exception ex) {
-            Logger.getLogger(CrudAdmin.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
 
     }
 
@@ -80,42 +69,42 @@ public class CrudAdmin extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Aluno aluno = new Aluno();
-        Telefonealuno telAluno = new Telefonealuno();
-        Enderecoaluno endAluno = new Enderecoaluno();
+        processRequest(request, response);
+        Professor professor = new Professor();
+        Telefoneprofessor telProfessor = new Telefoneprofessor();
+        Enderecoprofessor endProfessor = new Enderecoprofessor();
 
-        AlunoJpaController alunoControl = new AlunoJpaController();
-        EnderecoalunoJpaController endControl = new EnderecoalunoJpaController();
-        TelefonealunoJpaController telControl = new TelefonealunoJpaController();
+        ProfessorJpaController professorControl = new ProfessorJpaController();
+        EnderecoprofessorJpaController endControl = new EnderecoprofessorJpaController();
+        TelefoneprofessorJpaController telControl = new TelefoneprofessorJpaController();
 
-        aluno.setMatricula(request.getParameter("matricula"));
+        professor.setSiape(request.getParameter("siape"));
 
-        aluno.setNome(request.getParameter("nome"));
-        aluno.setCpf(request.getParameter("cpf"));
-        aluno.setSenha(request.getParameter("senha"));
-        aluno.setSexo(request.getParameter("genero"));
-        aluno.setCurso(request.getParameter("curso"));
+        professor.setNome(request.getParameter("nome"));
+        professor.setCpf(request.getParameter("cpf"));
+        professor.setSenha(request.getParameter("senha"));
+        professor.setSexo(request.getParameter("genero"));
+        professor.setCurso(request.getParameter("curso"));
 
-        endAluno.setEstado(request.getParameter("estado"));
-        endAluno.setCidade(request.getParameter("cidade"));
-        endAluno.setBairro(request.getParameter("bairro"));
-        endAluno.setCep(request.getParameter("cep"));
-        endAluno.setRua(request.getParameter("rua"));
-        endAluno.setNumero(request.getParameter("numero"));
-        aluno.setEnderecoaluno(endAluno);
+        endProfessor.setEstado(request.getParameter("estado"));
+        endProfessor.setCidade(request.getParameter("cidade"));
+        endProfessor.setBairro(request.getParameter("bairro"));
+        endProfessor.setCep(request.getParameter("cep"));
+        endProfessor.setRua(request.getParameter("rua"));
+        endProfessor.setNumero(request.getParameter("numero"));
+        professor.setEnderecoprofessor(endProfessor);
 
-        telAluno.setTelefonecol(request.getParameter("telefone"));
-        telAluno.setAlunoMatricula(aluno);
+        telProfessor.setTelefone(request.getParameter("professor"));
+        telProfessor.setProfessorSiape(professor);
 
         try {
-            alunoControl.create(aluno);
-            telControl.create(telAluno);
+            professorControl.create(professor);
+            telControl.create(telProfessor);
             RequestDispatcher page = request.getRequestDispatcher("administrador");
             page.forward(request, response);
         } catch (Exception ex) {
-            Logger.getLogger(CrudAdmin.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CrudAdminProfessor.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
 
     /**

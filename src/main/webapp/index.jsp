@@ -100,7 +100,7 @@
                 </div>
             </div>
             <footer> 10/05/2018 Versão 1.000
-                © 2018 AcademicWizard <a href="administrador.jsp">Administrador</a></footer>
+                © 2018 AcademicWizard <a href="administrador">Administrador</a></footer>
         </div>
     </body>
 </html>

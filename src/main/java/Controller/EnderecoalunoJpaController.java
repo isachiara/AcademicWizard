@@ -16,6 +16,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 /**
@@ -107,14 +108,14 @@ public class EnderecoalunoJpaController implements Serializable {
         }
     }
 
-    public List<Enderecoaluno> findEnderecoPorAluno(Aluno aluno) {
+    public Enderecoaluno findEnderecoPorAluno(Aluno aluno) {
         EntityManager em = getEntityManager();
-        TypedQuery<Enderecoaluno> q = em.createQuery(
-                "SELECT e FROM Enderecoaluno e WHERE e.alunoMatricula LIKE :aluno", Enderecoaluno.class);
-        q.setParameter("aluno", aluno);
+        Query q = em.createQuery(
+                "SELECT e FROM Enderecoaluno e WHERE e.idEndereco LIKE :aluno", Enderecoaluno.class);
+        q.setParameter("aluno", aluno.getEnderecoaluno().getIdEndereco());
 
-        List<Enderecoaluno> resultados = q.getResultList();
-        return resultados;
+        Enderecoaluno resultado = (Enderecoaluno) q.getSingleResult();
+        return resultado;
 
     }
 }

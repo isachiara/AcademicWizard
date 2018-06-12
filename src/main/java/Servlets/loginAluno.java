@@ -56,21 +56,19 @@ public class loginAluno extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        List<Aluno> aluno;
-        List<Enderecoaluno> endereco;
+     
         AlunoJpaController alunoControl = new AlunoJpaController();
         EnderecoalunoJpaController enderecoControl = new EnderecoalunoJpaController();
         
-        aluno = alunoControl.findAluno(request.getParameter("matricula"), request.getParameter("senha"));
-        Aluno resultado = aluno.get(0);
+        Aluno aluno = alunoControl.findAluno(request.getParameter("matricula"), request.getParameter("senha"));
         
-        endereco = enderecoControl.findEnderecoPorAluno(resultado);
-        if (resultado != null) {
+        Enderecoaluno endereco = enderecoControl.findEnderecoPorAluno(aluno);
+        if (aluno != null) {
             request.getSession().invalidate();
             HttpSession session = request.getSession(true);
-            session.setAttribute("aluno", resultado);
+            session.setAttribute("aluno", aluno);
             
-            request.setAttribute("perfil", resultado);
+            request.setAttribute("perfil", aluno);
             request.setAttribute("endereco", endereco);
             RequestDispatcher login = request.getRequestDispatcher("perfilAluno.jsp");
             login.forward(request, response);
