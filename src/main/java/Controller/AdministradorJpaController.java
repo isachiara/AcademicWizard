@@ -8,8 +8,10 @@ package Controller;
 import Controller.exceptions.IllegalOrphanException;
 import Controller.exceptions.NonexistentEntityException;
 import Controller.exceptions.RollbackFailureException;
+import Daoutil.DAO;
 import Model.Administrador;
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -19,15 +21,23 @@ import javax.persistence.Persistence;
  *
  * @author Henrique
  */
-public class AdministradorJpaController implements Serializable {
+public class AdministradorJpaController implements Serializable, DAO<Administrador> {
 
     private final static EntityManagerFactory EMF = Persistence.createEntityManagerFactory("AcademicPU");
 
+    @Override
     public EntityManager getEntityManager() {
         return EMF.createEntityManager();
     }
 
-    public void create(Administrador administrador) throws RollbackFailureException, Exception {
+    /**
+     *
+     * @param administrador
+     * @throws RollbackFailureException
+     * @throws Exception
+     */
+    @Override
+    public void create(Administrador administrador) throws RollbackFailureException, Exception{
         EntityManager em = null;
         EntityTransaction et = null;
 
@@ -49,6 +59,7 @@ public class AdministradorJpaController implements Serializable {
         }
     }
 
+    @Override
     public void edit(Administrador administrador) throws IllegalOrphanException, NonexistentEntityException, RollbackFailureException, Exception {
         EntityManager em = null;
         EntityTransaction et = null;
@@ -71,6 +82,15 @@ public class AdministradorJpaController implements Serializable {
         }
     }
 
+    /**
+     *
+     * @param adm
+     * @throws IllegalOrphanException
+     * @throws NonexistentEntityException
+     * @throws RollbackFailureException
+     * @throws Exception
+     */
+    @Override
     public void destroy(Administrador adm) throws IllegalOrphanException, NonexistentEntityException, RollbackFailureException, Exception {
         EntityManager em = null;
         EntityTransaction et = null;
@@ -103,5 +123,9 @@ public class AdministradorJpaController implements Serializable {
             em.close();
         }
     }
-    
+
+    @Override
+    public Administrador find(Administrador entity) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

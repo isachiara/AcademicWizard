@@ -8,6 +8,7 @@ package Controller;
 import Controller.exceptions.IllegalOrphanException;
 import Controller.exceptions.NonexistentEntityException;
 import Controller.exceptions.RollbackFailureException;
+import Daoutil.DAO;
 import java.io.Serializable;
 import Model.Professor;
 import java.util.List;
@@ -22,14 +23,16 @@ import javax.persistence.TypedQuery;
  *
  * @author Henrique
  */
-public class ProfessorJpaController implements Serializable {
+public class ProfessorJpaController implements Serializable, DAO<Professor> {
 
     private final static EntityManagerFactory EMF = Persistence.createEntityManagerFactory("AcademicPU");
 
+    @Override
     public EntityManager getEntityManager() {
         return EMF.createEntityManager();
     }
 
+    @Override
     public void create(Professor professor) throws RollbackFailureException, Exception {
         EntityManager em = null;
         EntityTransaction et = null;
@@ -52,6 +55,7 @@ public class ProfessorJpaController implements Serializable {
         }
     }
 
+    @Override
     public void edit(Professor professor) throws IllegalOrphanException, NonexistentEntityException, RollbackFailureException, Exception {
         EntityManager em = null;
         EntityTransaction et = null;
@@ -74,6 +78,7 @@ public class ProfessorJpaController implements Serializable {
         }
     }
 
+    @Override
     public void destroy(Professor professor) throws IllegalOrphanException, NonexistentEntityException, RollbackFailureException, Exception {
         EntityManager em = null;
         EntityTransaction et = null;
@@ -148,5 +153,10 @@ public class ProfessorJpaController implements Serializable {
         } 
         
         return usuarioEncontrado;
+    }
+
+    @Override
+    public Professor find(Professor entity) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

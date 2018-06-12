@@ -8,6 +8,7 @@ package Controller;
 import Controller.exceptions.IllegalOrphanException;
 import Controller.exceptions.NonexistentEntityException;
 import Controller.exceptions.RollbackFailureException;
+import Daoutil.DAO;
 import Model.Aluno;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -23,14 +24,22 @@ import javax.persistence.TypedQuery;
  *
  * @author Henrique
  */
-public class AlunoJpaController implements Serializable {
+public class AlunoJpaController implements Serializable, DAO<Aluno> {
 
     private final static EntityManagerFactory EMF = Persistence.createEntityManagerFactory("AcademicPU");
 
+    @Override
     public EntityManager getEntityManager() {
         return EMF.createEntityManager();
     }
 
+    /**
+     *
+     * @param aluno
+     * @throws RollbackFailureException
+     * @throws Exception
+     */
+    @Override
     public void create(Aluno aluno) throws RollbackFailureException, Exception {
         EntityManager em = null;
         EntityTransaction et = null;
@@ -53,6 +62,7 @@ public class AlunoJpaController implements Serializable {
         }
     }
 
+    @Override
     public void edit(Aluno aluno) throws IllegalOrphanException, NonexistentEntityException, RollbackFailureException, Exception {
         EntityManager em = null;
         EntityTransaction et = null;
@@ -75,6 +85,7 @@ public class AlunoJpaController implements Serializable {
         }
     }
 
+    @Override
     public void destroy(Aluno aluno) throws IllegalOrphanException, NonexistentEntityException, RollbackFailureException, Exception {
         EntityManager em = null;
         EntityTransaction et = null;
@@ -112,6 +123,11 @@ public class AlunoJpaController implements Serializable {
         
         return aluno;
 
+    }
+
+    @Override
+    public Aluno find(Aluno entity) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

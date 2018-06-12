@@ -8,6 +8,7 @@ package Controller;
 import Controller.exceptions.IllegalOrphanException;
 import Controller.exceptions.NonexistentEntityException;
 import Controller.exceptions.RollbackFailureException;
+import Daoutil.DAO;
 import java.io.Serializable;
 import Model.Telefonealuno;
 import javax.persistence.EntityManager;
@@ -19,14 +20,16 @@ import javax.persistence.Persistence;
  *
  * @author Henrique
  */
-public class TelefonealunoJpaController implements Serializable {
+public class TelefonealunoJpaController implements Serializable, DAO<Telefonealuno> {
 
-     private final static EntityManagerFactory EMF = Persistence.createEntityManagerFactory("AcademicPU");
+    private final static EntityManagerFactory EMF = Persistence.createEntityManagerFactory("AcademicPU");
 
+    @Override
     public EntityManager getEntityManager() {
         return EMF.createEntityManager();
     }
 
+    @Override
     public void create(Telefonealuno telefoneAluno) throws RollbackFailureException, Exception {
         EntityManager em = null;
         EntityTransaction et = null;
@@ -49,6 +52,7 @@ public class TelefonealunoJpaController implements Serializable {
         }
     }
 
+    @Override
     public void edit(Telefonealuno telefoneAluno) throws IllegalOrphanException, NonexistentEntityException, RollbackFailureException, Exception {
         EntityManager em = null;
         EntityTransaction et = null;
@@ -71,6 +75,7 @@ public class TelefonealunoJpaController implements Serializable {
         }
     }
 
+    @Override
     public void destroy(Telefonealuno telefoneAluno) throws IllegalOrphanException, NonexistentEntityException, RollbackFailureException, Exception {
         EntityManager em = null;
         EntityTransaction et = null;
@@ -102,5 +107,10 @@ public class TelefonealunoJpaController implements Serializable {
         } finally {
             em.close();
         }
+    }
+
+    @Override
+    public Telefonealuno find(Telefonealuno entity) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

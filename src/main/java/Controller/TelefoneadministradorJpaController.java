@@ -9,6 +9,7 @@ import Controller.exceptions.IllegalOrphanException;
 import Controller.exceptions.NonexistentEntityException;
 import Controller.exceptions.PreexistingEntityException;
 import Controller.exceptions.RollbackFailureException;
+import Daoutil.DAO;
 import java.io.Serializable;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
@@ -27,14 +28,16 @@ import javax.transaction.UserTransaction;
  *
  * @author Henrique
  */
-public class TelefoneadministradorJpaController implements Serializable {
+public class TelefoneadministradorJpaController implements Serializable, DAO<Telefoneadministrador> {
 
     private final static EntityManagerFactory EMF = Persistence.createEntityManagerFactory("AcademicPU");
 
+    @Override
     public EntityManager getEntityManager() {
         return EMF.createEntityManager();
     }
 
+    @Override
     public void create(Telefoneadministrador telefoneAdministrador) throws RollbackFailureException, Exception {
         EntityManager em = null;
         EntityTransaction et = null;
@@ -57,6 +60,7 @@ public class TelefoneadministradorJpaController implements Serializable {
         }
     }
 
+    @Override
     public void edit(Telefoneadministrador telefoneAdministrador) throws IllegalOrphanException, NonexistentEntityException, RollbackFailureException, Exception {
         EntityManager em = null;
         EntityTransaction et = null;
@@ -79,6 +83,7 @@ public class TelefoneadministradorJpaController implements Serializable {
         }
     }
 
+    @Override
     public void destroy(Telefoneadministrador telefoneAdm) throws IllegalOrphanException, NonexistentEntityException, RollbackFailureException, Exception {
         EntityManager em = null;
         EntityTransaction et = null;
@@ -110,6 +115,11 @@ public class TelefoneadministradorJpaController implements Serializable {
         } finally {
             em.close();
         }
+    }
+
+    @Override
+    public Telefoneadministrador find(Telefoneadministrador entity) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

@@ -8,6 +8,7 @@ package Controller;
 import Controller.exceptions.IllegalOrphanException;
 import Controller.exceptions.NonexistentEntityException;
 import Controller.exceptions.RollbackFailureException;
+import Daoutil.DAO;
 import java.io.Serializable;
 import Model.DisciplinaHasAluno;
 import Model.DisciplinaHasAlunoPK;
@@ -20,14 +21,16 @@ import javax.persistence.Persistence;
  *
  * @author Henrique
  */
-public class DisciplinaHasAlunoJpaController implements Serializable {
+public class DisciplinaHasAlunoJpaController implements Serializable, DAO<DisciplinaHasAluno> {
 
-     private final static EntityManagerFactory EMF = Persistence.createEntityManagerFactory("AcademicPU");
+    private final static EntityManagerFactory EMF = Persistence.createEntityManagerFactory("AcademicPU");
 
+    @Override
     public EntityManager getEntityManager() {
         return EMF.createEntityManager();
     }
 
+    @Override
     public void create(DisciplinaHasAluno discHasAlun) throws RollbackFailureException, Exception {
         EntityManager em = null;
         EntityTransaction et = null;
@@ -50,6 +53,7 @@ public class DisciplinaHasAlunoJpaController implements Serializable {
         }
     }
 
+    @Override
     public void edit(DisciplinaHasAluno discHasAlun) throws IllegalOrphanException, NonexistentEntityException, RollbackFailureException, Exception {
         EntityManager em = null;
         EntityTransaction et = null;
@@ -72,6 +76,7 @@ public class DisciplinaHasAlunoJpaController implements Serializable {
         }
     }
 
+    @Override
     public void destroy(DisciplinaHasAluno disHasAlun) throws IllegalOrphanException, NonexistentEntityException, RollbackFailureException, Exception {
         EntityManager em = null;
         EntityTransaction et = null;
@@ -103,6 +108,11 @@ public class DisciplinaHasAlunoJpaController implements Serializable {
         } finally {
             em.close();
         }
+    }
+
+    @Override
+    public DisciplinaHasAluno find(DisciplinaHasAluno entity) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

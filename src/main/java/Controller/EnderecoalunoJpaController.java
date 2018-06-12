@@ -8,6 +8,7 @@ package Controller;
 import Controller.exceptions.IllegalOrphanException;
 import Controller.exceptions.NonexistentEntityException;
 import Controller.exceptions.RollbackFailureException;
+import Daoutil.DAO;
 import Model.Aluno;
 import java.io.Serializable;
 import Model.Enderecoaluno;
@@ -23,14 +24,16 @@ import javax.persistence.TypedQuery;
  *
  * @author Henrique
  */
-public class EnderecoalunoJpaController implements Serializable {
+public class EnderecoalunoJpaController implements Serializable, DAO<Enderecoaluno> {
 
     private final static EntityManagerFactory EMF = Persistence.createEntityManagerFactory("AcademicPU");
-
+    
+    @Override
     public EntityManager getEntityManager() {
         return EMF.createEntityManager();
     }
 
+    @Override
     public void create(Enderecoaluno enderecoAluno) throws RollbackFailureException, Exception {
         EntityManager em = null;
         EntityTransaction et = null;
@@ -53,6 +56,7 @@ public class EnderecoalunoJpaController implements Serializable {
         }
     }
 
+    @Override
     public void edit(Enderecoaluno enderecoAluno) throws IllegalOrphanException, NonexistentEntityException, RollbackFailureException, Exception {
         EntityManager em = null;
         EntityTransaction et = null;
@@ -75,6 +79,7 @@ public class EnderecoalunoJpaController implements Serializable {
         }
     }
 
+    @Override
     public void destroy(Enderecoaluno enderecoAluno) throws IllegalOrphanException, NonexistentEntityException, RollbackFailureException, Exception {
         EntityManager em = null;
         EntityTransaction et = null;
@@ -117,5 +122,10 @@ public class EnderecoalunoJpaController implements Serializable {
         Enderecoaluno resultado = (Enderecoaluno) q.getSingleResult();
         return resultado;
 
+    }
+
+    @Override
+    public Enderecoaluno find(Enderecoaluno entity) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

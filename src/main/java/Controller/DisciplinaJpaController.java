@@ -8,6 +8,7 @@ package Controller;
 import Controller.exceptions.IllegalOrphanException;
 import Controller.exceptions.NonexistentEntityException;
 import Controller.exceptions.RollbackFailureException;
+import Daoutil.DAO;
 import Model.Disciplina;
 import Model.Professor;
 import java.io.Serializable;
@@ -24,14 +25,16 @@ import javax.persistence.TypedQuery;
  *
  * @author Henrique
  */
-public class DisciplinaJpaController implements Serializable {
+public class DisciplinaJpaController implements Serializable, DAO<Disciplina> {
 
     private final static EntityManagerFactory EMF = Persistence.createEntityManagerFactory("AcademicPU");
 
+    @Override
     public EntityManager getEntityManager() {
         return EMF.createEntityManager();
     }
 
+    @Override
     public void create(Disciplina disciplina) throws RollbackFailureException, Exception {
         EntityManager em = null;
         EntityTransaction et = null;
@@ -54,6 +57,7 @@ public class DisciplinaJpaController implements Serializable {
         }
     }
 
+    @Override
     public void edit(Disciplina disciplina) throws IllegalOrphanException, NonexistentEntityException, RollbackFailureException, Exception {
         EntityManager em = null;
         EntityTransaction et = null;
@@ -76,6 +80,7 @@ public class DisciplinaJpaController implements Serializable {
         }
     }
 
+    @Override
     public void destroy(Disciplina disciplina) throws IllegalOrphanException, NonexistentEntityException, RollbackFailureException, Exception {
         EntityManager em = null;
         EntityTransaction et = null;
@@ -138,6 +143,11 @@ public class DisciplinaJpaController implements Serializable {
             
         return null;
 
+    }
+
+    @Override
+    public Disciplina find(Disciplina entity) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

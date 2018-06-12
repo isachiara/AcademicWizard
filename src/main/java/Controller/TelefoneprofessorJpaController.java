@@ -8,6 +8,7 @@ package Controller;
 import Controller.exceptions.IllegalOrphanException;
 import Controller.exceptions.NonexistentEntityException;
 import Controller.exceptions.RollbackFailureException;
+import Daoutil.DAO;
 import java.io.Serializable;
 import Model.Telefoneprofessor;
 import javax.persistence.EntityManager;
@@ -19,14 +20,16 @@ import javax.persistence.Persistence;
  *
  * @author Henrique
  */
-public class TelefoneprofessorJpaController implements Serializable {
+public class TelefoneprofessorJpaController implements Serializable, DAO<Telefoneprofessor> {
 
-     private final static EntityManagerFactory EMF = Persistence.createEntityManagerFactory("AcademicPU");
+    private final static EntityManagerFactory EMF = Persistence.createEntityManagerFactory("AcademicPU");
 
+    @Override
     public EntityManager getEntityManager() {
         return EMF.createEntityManager();
     }
 
+    @Override
     public void create(Telefoneprofessor telefoneProfessor) throws RollbackFailureException, Exception {
         EntityManager em = null;
         EntityTransaction et = null;
@@ -49,6 +52,7 @@ public class TelefoneprofessorJpaController implements Serializable {
         }
     }
 
+    @Override
     public void edit(Telefoneprofessor telefoneProfessor) throws IllegalOrphanException, NonexistentEntityException, RollbackFailureException, Exception {
         EntityManager em = null;
         EntityTransaction et = null;
@@ -71,6 +75,7 @@ public class TelefoneprofessorJpaController implements Serializable {
         }
     }
 
+    @Override
     public void destroy(Telefoneprofessor adm) throws IllegalOrphanException, NonexistentEntityException, RollbackFailureException, Exception {
         EntityManager em = null;
         EntityTransaction et = null;
@@ -94,6 +99,7 @@ public class TelefoneprofessorJpaController implements Serializable {
             }
         }
     }
+    
     public Telefoneprofessor findTelefoneprofessor(Integer id) {
         EntityManager em = getEntityManager();
         try {
@@ -101,6 +107,11 @@ public class TelefoneprofessorJpaController implements Serializable {
         } finally {
             em.close();
         }
+    }
+
+    @Override
+    public Telefoneprofessor find(Telefoneprofessor entity) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
    
 }
