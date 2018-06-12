@@ -11,10 +11,13 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -69,8 +72,9 @@ public class Professor implements Serializable {
     private String curso;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "professorSiape")
     private List<Disciplina> disciplinaList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "professorSiape")
-    private List<Enderecoprofessor> enderecoprofessorList;
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, optional = false)
+    @JoinColumn(name = "id_enderecoprofessor", referencedColumnName = "idEndereco")
+    private Enderecoprofessor enderecoprofessor;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "professorSiape")
     private List<Telefoneprofessor> telefoneprofessorList;
 
@@ -147,12 +151,12 @@ public class Professor implements Serializable {
     }
 
     @XmlTransient
-    public List<Enderecoprofessor> getEnderecoprofessorList() {
-        return enderecoprofessorList;
+    public Enderecoprofessor getEnderecoprofessor() {
+        return enderecoprofessor;
     }
 
-    public void setEnderecoprofessorList(List<Enderecoprofessor> enderecoprofessorList) {
-        this.enderecoprofessorList = enderecoprofessorList;
+    public void setEnderecoprofessor(Enderecoprofessor enderecoprofessor) {
+        this.enderecoprofessor = enderecoprofessor;
     }
 
     @XmlTransient

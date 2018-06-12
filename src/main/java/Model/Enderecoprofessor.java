@@ -16,6 +16,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -72,9 +73,9 @@ public class Enderecoprofessor implements Serializable {
     @NotNull
     @Column(name = "Cep")
     private String cep;
-    @JoinColumn(name = "Professor_Siape", referencedColumnName = "Siape")
-    @ManyToOne(optional = false)
-    private Professor professorSiape;
+    @JoinColumn(name = "Professor_siape", referencedColumnName = "Siape")
+    @OneToOne(mappedBy = "enderecoprofessor", optional = false)
+    private Professor professor;
 
     public Enderecoprofessor() {
     }
@@ -149,12 +150,12 @@ public class Enderecoprofessor implements Serializable {
         this.cep = cep;
     }
 
-    public Professor getProfessorSiape() {
-        return professorSiape;
+    public Professor getProfessor() {
+        return professor;
     }
 
-    public void setProfessorSiape(Professor professorSiape) {
-        this.professorSiape = professorSiape;
+    public void setProfessor(Professor professor) {
+        this.professor = professor;
     }
 
     @Override
