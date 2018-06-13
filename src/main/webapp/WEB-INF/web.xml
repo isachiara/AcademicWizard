@@ -13,14 +13,6 @@
         <servlet-class>Servlets.loginAluno</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>perfilAluno</servlet-name>
-        <servlet-class>Servlets.perfilAluno</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>servletMatricula</servlet-name>
-        <servlet-class>Servlets.servletMatricula</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>editarAluno</servlet-name>
         <servlet-class>Servlets.editarAluno</servlet-class>
     </servlet>
@@ -32,25 +24,45 @@
         <servlet-name>LoginProfessor</servlet-name>
         <servlet-class>Servlets.LoginProfessor</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CrudAdminDisciplina</servlet-name>
+        <servlet-class>Servlets.CrudAdminDisciplina</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CrudAdminProfessor</servlet-name>
+        <servlet-class>Servlets.CrudAdminProfessor</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Administrador</servlet-name>
+        <servlet-class>Servlets.Administrador</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Logout</servlet-name>
+        <servlet-class>Servlets.Logout</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditarProfessor</servlet-name>
+        <servlet-class>Servlets.EditarProfessor</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PerfilAluno</servlet-name>
+        <servlet-class>Servlets.PerfilAluno</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PerfilProfessor</servlet-name>
+        <servlet-class>Servlets.PerfilProfessor</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>CrudAdmin</servlet-name>
         <url-pattern>/CrudAdmin</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>loginAluno</servlet-name>
-        <url-pattern>/login</url-pattern>
+        <url-pattern>/loginAluno</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>listaDisciplina</servlet-name>
         <url-pattern>/disciplinas</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>perfilAluno</servlet-name>
-        <url-pattern>/perfilAluno</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>servletMatricula</servlet-name>
-        <url-pattern>/matricula</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>editarAluno</servlet-name>
@@ -58,11 +70,39 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ListaDisciplinasProfessor</servlet-name>
-        <url-pattern>/ListaDisciplinasProfessor</url-pattern>
+        <url-pattern>/listaDisciplinasProfessor</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>LoginProfessor</servlet-name>
-        <url-pattern>/LoginProfessor</url-pattern>
+        <url-pattern>/loginProfessor</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CrudAdminDisciplina</servlet-name>
+        <url-pattern>/CrudAdminDisciplina</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CrudAdminProfessor</servlet-name>
+        <url-pattern>/CrudAdminProfessor</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Administrador</servlet-name>
+        <url-pattern>/administrador</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Logout</servlet-name>
+        <url-pattern>/Logout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditarProfessor</servlet-name>
+        <url-pattern>/editarProfessor</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PerfilAluno</servlet-name>
+        <url-pattern>/PerfilAluno</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PerfilProfessor</servlet-name>
+        <url-pattern>/PerfilProfessor</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

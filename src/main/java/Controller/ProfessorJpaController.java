@@ -107,18 +107,20 @@ public class ProfessorJpaController implements Serializable {
         query.setParameter("senha", Senha);
         
         List<Professor> alunos = query.getResultList();
+        em.clear();
         em.close();
         return !alunos.isEmpty();
 
     }
-    public List<Professor> findProfessor(String Siape) {
+    public Professor findProfessor(String Siape) {
         EntityManager em = getEntityManager();
         
-        TypedQuery<Professor> query = em.createQuery(
-                "SELECT a FROM Professor a WHERE a.siape LIKE :siape", Professor.class);
-        query.setParameter("siape", Siape);
+        Query query = em.createQuery(
+                "SELECT a FROM Professor a WHERE a.siape LIKE ?1", Professor.class);
+        query.setParameter(1, Siape);
         
-        List<Professor> professor = query.getResultList();
+        Professor professor = (Professor)query.getSingleResult();
+        em.clear();
         em.close();
         return professor;
 
@@ -130,23 +132,22 @@ public class ProfessorJpaController implements Serializable {
                 "SELECT p FROM Professor p", Professor.class);
         List<Professor> professores = query.getResultList();
         
+        em.clear();
         em.close();
         return professores;
     }
     
-    public Professor verificaLogin(Professor usuario){
+    public Professor verificaLogin(String siape, String senha){
         Professor usuarioEncontrado;
         EntityManager em = getEntityManager();
         
-        String hql = "from Professor u where u.nome = '" + usuario.getNome() + "' and u.senha = '" + usuario.getSenha() + "' ";
-        Query query = em.createQuery(hql);
+        Query q = em.createQuery("SELECT p FROM Professor p WHERE p.siape = ?1 AND p.senha = ?2", Professor.class);
+        q.setParameter(1, siape);
+        q.setParameter(2, senha);
+        usuarioEncontrado = (Professor) q.getSingleResult();
         
-        usuarioEncontrado = (Professor) query.getSingleResult();
-        
-        if(usuarioEncontrado != null){
-            return usuarioEncontrado;
-        } 
-        
+        em.clear();
+        em.close();
         return usuarioEncontrado;
     }
 }

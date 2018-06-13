@@ -9,11 +9,13 @@ import Controller.exceptions.IllegalOrphanException;
 import Controller.exceptions.NonexistentEntityException;
 import Controller.exceptions.RollbackFailureException;
 import Model.Enderecoprofessor;
+import Model.Professor;
 import java.io.Serializable;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 
 /**
  *
@@ -21,7 +23,7 @@ import javax.persistence.Persistence;
  */
 public class EnderecoprofessorJpaController implements Serializable {
 
-     private final static EntityManagerFactory EMF = Persistence.createEntityManagerFactory("AcademicPU");
+    private final static EntityManagerFactory EMF = Persistence.createEntityManagerFactory("AcademicPU");
 
     public EntityManager getEntityManager() {
         return EMF.createEntityManager();
@@ -103,5 +105,16 @@ public class EnderecoprofessorJpaController implements Serializable {
             em.close();
         }
     }
-    
+
+    public Enderecoprofessor findEnderecoPorProfessor(Professor professor) {
+        EntityManager em = getEntityManager();
+        Query q = em.createQuery(
+                "SELECT e FROM Enderecoprofessor e WHERE e.idEndereco LIKE ?1", Enderecoprofessor.class);
+        q.setParameter(1, professor.getEnderecoprofessor().getIdEndereco());
+
+        Enderecoprofessor resultado = (Enderecoprofessor) q.getSingleResult();
+        return resultado;
+
+    }
+
 }

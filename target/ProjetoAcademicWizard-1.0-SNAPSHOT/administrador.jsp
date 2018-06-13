@@ -3,18 +3,22 @@
     Created on : 23/04/2018, 14:37:45
     Author     : Isabella
 --%>
-
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Acesso do Admin</title>
     </head>
     <body>
         <h1>AcademicWizard</h1>
 
-        <form action="CrudAdminAluno" method="POST">
+        <form action="CrudAdmin" method="POST">
             <h4>Formulário Aluno</h4>
             <label>Matricula:</label>
             <input type="text" name="matricula" value="201510240"/></br>
@@ -52,7 +56,7 @@
         <input type="submit" name="submit" value="submit" />
     </form>
 
-    <form action="CrudAdminProfessor">
+    <form action="CrudAdminProfessor" method="POST">
         <h4>Formulário Professor</h4>
         <label>Siape:</label>
         <input type="text" name="siape" value="2091928"/></br>
@@ -91,22 +95,34 @@
     <input type="submit" name="submit" value="submit" />
     </br></br>
 </form>
-       
-        <form action="CrudAdminDisciplina">
-            <label>Nome Disciplina:</label>
-            <input type="text" name="nome" value="Disciplina01"/>
-            <label>Carga Horaria</label>
-            <input type="text" name="carga" value="45 horas"/>
-            <label>Horario</label>
-            <input type="text" name="hora" value="8h"/>
-            <label>Dia(s)</label>
-            <input type="text" name="dias" value="Segunda e Terça"/>
-            <label>Periodo</label>
-            <input type="text" name="periodo" value="3º"/>
-            <label>Requisito</label>
-            <input type="text" name="requisito" value="Nenhum"/>
-            //lista de professores
-        </form>
+
+<form action="CrudAdminDisciplina" method="GET">
+    <label>Nome Disciplina:</label>
+    <input type="text" name="nome" value="Disciplina01"/></br>
+    <label>Carga Horaria</label>
+    <input type="text" name="carga" value="45 horas"/></br>
+    <label>Horario</label>
+    <input type="text" name="hora" value="8h"/></br>
+    <label>Dia(s)</label>
+    <input type="text" name="dias" value="Segunda e Terça"/></br>
+    <label>Periodo</label>
+    <input type="number" name="periodo" value="3º"/></br>
+    <label>Requisito</label>
+    <select name="disciplinas">
+        <option value="Nenhum">Nenhhum</option>
+        <c:forEach items="${listDisciplina}" var="disciplina" >
+            <option value="${disciplina.nome}">${disciplina.nome}</option>
+        </c:forEach>
+    </select></br>
+    <label>Professor</label>
+    <select name="professor">
+        <c:forEach items="${listProfessor}" var="professor" >
+            <option value="${professor}">${professor.nome}</option>
+        </c:forEach>
+    </select></br>
+    <input type="submit" name="submit" value="submit" />
+    </br></br>
+</form>
 </body>
 </html>
 

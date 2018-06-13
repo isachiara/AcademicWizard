@@ -56,22 +56,38 @@ public class loginAluno extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-     
+
+    }
+
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         AlunoJpaController alunoControl = new AlunoJpaController();
-        EnderecoalunoJpaController enderecoControl = new EnderecoalunoJpaController();
-        
+        //EnderecoalunoJpaController enderecoControl = new EnderecoalunoJpaController();
+
         Aluno aluno = alunoControl.findAluno(request.getParameter("matricula"), request.getParameter("senha"));
-        
-        Enderecoaluno endereco = enderecoControl.findEnderecoPorAluno(aluno);
+
+       // Enderecoaluno endereco = enderecoControl.findEnderecoPorAluno(aluno);
         if (aluno != null) {
-            request.getSession().invalidate();
-            HttpSession session = request.getSession(true);
-            session.setAttribute("aluno", aluno);
-            
-            request.setAttribute("perfil", aluno);
-            request.setAttribute("endereco", endereco);
-            RequestDispatcher login = request.getRequestDispatcher("perfilAluno.jsp");
-            login.forward(request, response);
+            HttpSession session = request.getSession();
+            if (session.isNew()) {
+                session.setAttribute("aluno", aluno);
+            } else {
+                session.invalidate();
+                session = request.getSession();
+                session.setAttribute("aluno", aluno);
+            }
+        
+            RequestDispatcher page = request.getRequestDispatcher("PerfilAluno");
+            page.forward(request, response);
 
         } else {
             request.setAttribute("erroLogin", "Matricula ou senha inválidos.");
@@ -81,27 +97,13 @@ public class loginAluno extends HttpServlet {
 
     }
 
-/**
- * Handles the HTTP <code>POST</code> method.
- *
- * @param request servlet request
- * @param response servlet response
- * @throws ServletException if a servlet-specific error occurs
- * @throws IOException if an I/O error occurs
- */
-@Override
-        protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
-    }
-
     /**
      * Returns a short description of the servlet.
      *
      * @return a String containing servlet description
      */
     @Override
-        public String getServletInfo() {
+    public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
 

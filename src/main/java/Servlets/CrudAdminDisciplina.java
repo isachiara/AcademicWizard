@@ -76,9 +76,7 @@ public class CrudAdminDisciplina extends HttpServlet {
             } catch (Exception ex) {
                 Logger.getLogger(CrudAdminProfessor.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } else {
-            System.out.println("Fudeu mesmo");
-        }
+        } 
 
     }
 

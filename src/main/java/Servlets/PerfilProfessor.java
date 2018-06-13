@@ -5,18 +5,23 @@
  */
 package Servlets;
 
+import Controller.EnderecoprofessorJpaController;
+import Model.Enderecoprofessor;
+import Model.Professor;
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Isabella
+ * @author Edu
  */
-public class perfilAluno extends HttpServlet {
+public class PerfilProfessor extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -29,8 +34,16 @@ public class perfilAluno extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+        HttpSession session = request.getSession();
+        Professor professor = (Professor) session.getAttribute("professor");
         
+        EnderecoprofessorJpaController endControll = new EnderecoprofessorJpaController();
+        Enderecoprofessor endereco = endControll.findEnderecoprofessor(professor.getEnderecoprofessor().getIdEndereco());
+        
+        request.setAttribute("perfil", professor);
+        request.setAttribute("endereco", endereco);
+        RequestDispatcher login = request.getRequestDispatcher("perfilProfessor.jsp");
+        login.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

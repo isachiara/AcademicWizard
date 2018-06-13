@@ -8,10 +8,11 @@ import javax.persistence.metamodel.ListAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2018-06-11T16:26:03")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2018-06-12T22:03:54")
 @StaticMetamodel(Aluno.class)
 public class Aluno_ { 
 
+    public static volatile SingularAttribute<Aluno, Enderecoaluno> enderecoaluno;
     public static volatile ListAttribute<Aluno, DisciplinaHasAluno> disciplinaHasAlunoList;
     public static volatile SingularAttribute<Aluno, String> senha;
     public static volatile ListAttribute<Aluno, Telefonealuno> telefonealunoList;
@@ -19,7 +20,6 @@ public class Aluno_ {
     public static volatile SingularAttribute<Aluno, String> matricula;
     public static volatile SingularAttribute<Aluno, String> cpf;
     public static volatile SingularAttribute<Aluno, String> nome;
-    public static volatile ListAttribute<Aluno, Enderecoaluno> enderecoalunoList;
     public static volatile SingularAttribute<Aluno, String> sexo;
 
 }

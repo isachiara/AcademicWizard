@@ -103,11 +103,12 @@ public class AlunoJpaController implements Serializable {
         EntityManager em = getEntityManager();
         Aluno aluno = new Aluno();
         Query query = em.createQuery(
-                "SELECT a FROM Aluno a WHERE a.matricula LIKE :matricula AND a.senha LIKE :senha", Aluno.class);
-        query.setParameter("matricula", Matricula);
-        query.setParameter("senha", Senha);
+                "SELECT a FROM Aluno a WHERE a.matricula LIKE ?1 AND a.senha LIKE ?2", Aluno.class);
+        query.setParameter(1, Matricula);
+        query.setParameter(2, Senha);
         
         aluno = (Aluno) query.getSingleResult();
+        em.clear();
         em.close();
         
         return aluno;

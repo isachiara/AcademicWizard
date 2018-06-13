@@ -5,8 +5,10 @@
  */
 package Servlets;
 
+import Controller.EnderecoprofessorJpaController;
 import Controller.ProfessorJpaController;
 import Model.Aluno;
+import Model.Enderecoprofessor;
 import Model.Professor;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -67,46 +69,32 @@ public class LoginProfessor extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
- protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
-        
-        HttpSession sessao = request.getSession();
-        
-        Professor professor = new Professor();
         ProfessorJpaController profControl = new ProfessorJpaController();
+        Professor professor = new Professor();
+        professor = profControl.verificaLogin(request.getParameter("siape"), request.getParameter("senha"));
 
-        professor.setSiape(request.getParameter("siape"));
-        professor.setSenha(request.getParameter("senha"));
-        
-        Professor usuarioResult = new Professor();
-        
-        usuarioResult = profControl.verificaLogin(professor);
-
-        if (usuarioResult != null) {
-            sessao.setAttribute("isActive", "verdadeiro");
-            sessao.setAttribute("nomeDoCara", usuarioResult.getNome());
-            sessao.setAttribute("oCara", usuarioResult);
-            
-            request.setAttribute("perfil", usuarioResult);
-            response.sendRedirect(request.getContextPath() + "perfilProfessor.jsp");
-        } else { // Erro de login
-            out.println("<script type=\"text/javascript\">");
-            out.println("alert('Usuario ou senha incorretos');");
-            out.println("</script>");
-
-            sessao.setAttribute("isActive", "falso");
-            try {
-                //RequestDispatcher Same = request.getRequestDispatcher("/pages/login.jsp"); // Volta para login.sjp
-                //Same.include(request, response);
-                Thread.sleep(1);
-            } catch (InterruptedException ex) {
-                //Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
+        if (professor != null) {
+            HttpSession session = request.getSession(false);
+            if (session.isNew()) {
+                session.setAttribute("professor", professor);
+            } else {
+                session.invalidate();
+                session = request.getSession();
+                session.setAttribute("professor", professor);
             }
-            response.sendRedirect(request.getContextPath() + "index.jsp");
+            
+            RequestDispatcher page = request.getRequestDispatcher("PerfilProfessor");
+            page.forward(request, response);
+        } else { // Erro de login
+            request.setAttribute("erroLogin", "Siape ou senha inválidos.");
+            RequestDispatcher login = request.getRequestDispatcher("index.jsp");
+            login.forward(request, response);
 
         }
     }
+
     /**
      * Returns a short description of the servlet.
      *

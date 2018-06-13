@@ -5,24 +5,20 @@
  */
 package Servlets;
 
-import Controller.DisciplinaHasAlunoJpaController;
-import Controller.DisciplinaJpaController;
-import Model.Aluno;
-import Model.Disciplina;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Isabella
+ * @author Edu
  */
-public class servletMatricula extends HttpServlet {
+public class Logout extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,7 +32,11 @@ public class servletMatricula extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        HttpSession session = request.getSession();
+        session.invalidate();
 
+        RequestDispatcher logout = request.getRequestDispatcher("index.jsp");
+        logout.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -52,13 +52,6 @@ public class servletMatricula extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        response.setContentType("text/html;charset=UTF-8");
-        DisciplinaJpaController disciControll = new DisciplinaJpaController();
-        List<Disciplina> disciplinas = disciControll.getAllDisciplinas();
-
-        request.setAttribute("lista", disciplinas);
-        RequestDispatcher page = request.getRequestDispatcher("inscricaoMatricula.jsp");
-        page.forward(request, response);
     }
 
     /**
@@ -73,12 +66,6 @@ public class servletMatricula extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        Disciplina disciplina = new Disciplina();
-        Aluno aluno = new Aluno();
-        
-        DisciplinaHasAlunoJpaController d_h_a = new DisciplinaHasAlunoJpaController();
-        
-        //usar sessão
     }
 
     /**

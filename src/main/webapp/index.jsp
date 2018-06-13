@@ -17,7 +17,7 @@
     </head>
     <style>
         body{
-            background-color: #585858;
+            background-image: url(imagem.png);
         }
         #all{
             clear: both;
@@ -76,7 +76,7 @@
                 <div class="container">
                     <span><c:out value="${erroLogin}"/></span><br>
                     <div id="forms">
-                        <form action="login" action="post">
+                        <form action="loginAluno" method="POST">
                             <label id="tipo">Aluno</label></br>
                             <label>Matrícula: </label></br>
                             <input type="text" name="matricula"/></br></br>
@@ -87,13 +87,14 @@
                         </form>
                     </div>
 
-                    <div  id="forms">
-                        <form action="..\LoginProfessor" method="POST">
-                            <label>Siape: </label>
-                            <input type="text" name="siape"/>
-                            <label>Senha: </label>
+                    <div id="forms">
+                        <form action="loginProfessor" method="POST">
+                            <label id="tipo">Professor</label></br>
+                            <label>Siape: </label></br>
+                            <input type="text" name="siape"/></br></br>
+                            <label>Senha: </label></br>
                             <input type="password" name="senha"/>
-                            </br>
+                            </br></br>
                             <button type="submit" name="submit" value="submit">Entrar</button>
                         </form>
                     </div>

@@ -55,17 +55,7 @@ public class CrudAdmin extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Administrador adm = new Administrador();
-        AdministradorJpaController admControl = new AdministradorJpaController();
-        adm.setNome("nome");
-        adm.setSenha("adm");
-        adm.setUsuario("admin");
-
-        try {
-            admControl.create(adm);
-        } catch (Exception ex) {
-            Logger.getLogger(CrudAdmin.class.getName()).log(Level.SEVERE, null, ex);
-        }
+   
 
     }
 

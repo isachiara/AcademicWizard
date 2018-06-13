@@ -4,18 +4,7 @@
     Author     : Luis Henrique
 --%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@page import="Controller.*"%>
-<%@page import="Model.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
-<%       
-    /* Verificando se a sessão está ativa (Manda pra fora ou não?) ------------------------------------
-        Se estiver ativa, permanece na página. Senão, redireciona para página principal */
-    
-    HttpSession sessao = request.getSession();
-    String estaAtivo = (String) session.getAttribute("isActive");
-     
-%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -24,11 +13,11 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Perfil Aluno</title>
+        <title>Perfil Professor</title>
     </head>
     <style>
         body{
-            background-color: #585858;
+           background-image: url(imagem.png);
         }
         #all{
             clear: both;
@@ -90,51 +79,50 @@
     </style>
     <body>
         <div class="container" id = "all">
-            <header>Bem vindo Aluno!</header>
+            <header>Bem vindo Professor!</header>
             <nav><ul id="menu">
-                    <li><a class="active" href="perfilProfessor.jsp">Home</a></li>
-                    <li><a href="disciplinasProfessor.jsp" action="get">Lista Disciplinas</a></li>
-                    <li><a href="editarInformacoesProfessor.jsp" action="get">Editar informações</a></li>
-                    <li style="float:right"><a class="active" href="#about">Deslogar</a></li>
-                    
+                    <li id="menuItem"><a class="active" href="perfilProfessor.jsp">Home</a></li>
+                    <li id="menuItem"><a href="disciplinasProfessor"> Lista Disciplinas</a></li>
+                    <li id="menuItem"><a href="editarProfessor"> Editar informações</a></li>
+                    <li id="menuItem" style="float:right"><a class="active" href="Logout">Deslogar</a></li>
                 </ul>
             </nav>
             <div class="container" id="corpo">
                 <div>
                     <b><p>Informações do Usuário:</p></b>
 
-                    <table class="table table-striped">
+                    <table class="table table-striped" id="perfil">
                         <tr>
                             <th>Nome:</th>
-                            <td>Luis Henrique </td>
+                            <td><c:out value="${perfil.nome}"/></td>
                         </tr>
                         <tr>
-                            <th>Siape:</th>
-                            <td>206548240</td>
+                            <th>Matricula:</th>
+                            <td><c:out value="${perfil.siape}"/></td>
                         </tr>
                         <tr>
                             <th>Curso:</th>
-                            <td>TADS</td>
+                            <td><c:out value="${perfil.curso}"/></td>
                         </tr>
                         <tr>
                             <th>CPF:</th>
-                            <td>1004587200</td>
+                            <td><c:out value="${perfil.cpf}"/></td>
                         </tr>
                         <tr>
                             <th>Gênero:</th>
-                            <td>Masculino</td>
+                            <td><c:out value="${perfil.sexo}"/></td>
                         </tr>
                         <tr>
                             <th>CEP:</th>
-                            <td>15445200</td>
+                            <td><c:out value="${endereco.cep}"/></td>
                         </tr>
                         <tr>
                             <th>Cidade:</th>
-                            <td>cidade</td>
+                            <td><c:out value="${endereco.cidade}"/></td>
                         </tr>
                         <tr>
                             <th>Estado:</th>
-                            <td>estado</td>
+                            <td><c:out value="${endereco.estado}"/></td>
                         </tr>
                     </table>
 

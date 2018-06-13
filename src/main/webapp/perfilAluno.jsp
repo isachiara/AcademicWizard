@@ -17,7 +17,7 @@
     </head>
     <style>
         body{
-            background-color: #585858;
+            background-image: url(imagem.png);
         }
         #all{
             clear: both;
@@ -87,9 +87,9 @@
             <nav><ul id="menu">
                     <li id="menuItem"><a class="active" href="perfilAluno.jsp">Home</a></li>
                     <li id="menuItem"><a href="matricula" action="get">Matriculas</a></li>
-                    <li id="menuItem"><a href="disciplinas" action="get">Lista Disciplinas</a></li>
+                    <li id="menuItem"><a href="disciplinas">Lista Disciplinas</a></li>
                     <li id="menuItem"><a href="editarAluno" action="get">Editar informações</a></li>
-                    <li id="menuItem" style="float:right"><a class="active" href="#about">Deslogar</a></li>
+                    <li id="menuItem" style="float:right"><a class="active" href="Logout">Deslogar</a></li>
                 </ul>
             </nav>
             <div class="container" id="corpo">
@@ -123,11 +123,11 @@
                         </tr>
                         <tr>
                             <th>Cidade:</th>
-                            <td><c:out value="${endereco.cep}"/></td>
+                            <td><c:out value="${endereco.cidade}"/></td>
                         </tr>
                         <tr>
                             <th>Estado:</th>
-                            <td><c:out value="${perfil.enderecoalunoList.estado}"/></td>
+                            <td><c:out value="${endereco.estado}"/></td>
                         </tr>
                     </table>
 

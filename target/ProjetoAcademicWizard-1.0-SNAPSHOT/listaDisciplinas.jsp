@@ -17,7 +17,7 @@
     </head>
     <style>
         body{
-            background-color: #585858;
+            background-image: url(imagem.png);
         }
         #all{
             clear: both;
@@ -82,12 +82,12 @@
     <body>
         <div class="container" id = "all">
             <header>Lista das Disciplinas do Curso:</header>
-            <nav><ul>
-                    <li><a class="active" href="perfilAluno.jsp">Home</a></li>
-                    <li><a href="matricula" action="get">Matriculas</a></li>
-                    <li><a href="disciplinas" action="get">Lista Disciplinas</a></li>
-                    <li><a href="editarAluno" action="get">Editar informações</a></li>
-                    <li style="float:right"><a class="active" href="#about">Deslogar</a></li>
+            <nav><ul id="menu">
+                    <li id="menuItem"><a class="active" href="perfilAluno.jsp">Home</a></li>
+                    <li id="menuItem"><a href="matricula" action="get">Matriculas</a></li>
+                    <li id="menuItem"><a href="disciplinas">Lista Disciplinas</a></li>
+                    <li id="menuItem"><a href="editarAluno">Editar informações</a></li>
+                    <li id="menuItem" style="float:right"><a class="active" href="Logout">Deslogar</a></li>
                 </ul>
             </nav>
             <div class="container" id="corpo">

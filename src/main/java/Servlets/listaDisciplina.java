@@ -36,7 +36,12 @@ public class listaDisciplina extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        DisciplinaJpaController disciControll = new DisciplinaJpaController();
+        List<Disciplina> disciplinas = disciControll.getAllDisciplinas();
 
+        request.setAttribute("lista", disciplinas);
+        RequestDispatcher page = request.getRequestDispatcher("listaDisciplinas.jsp");
+        page.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -53,12 +58,7 @@ public class listaDisciplina extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
         response.setContentType("text/html;charset=UTF-8");
-        DisciplinaJpaController disciControll = new DisciplinaJpaController();
-        List<Disciplina> disciplinas = disciControll.getAllDisciplinas();
-   
-        request.setAttribute("lista", disciplinas);
-        RequestDispatcher page = request.getRequestDispatcher("listaDisciplinas.jsp");
-        page.forward(request, response);
+
     }
 
     /**

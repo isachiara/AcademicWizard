@@ -22,6 +22,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -40,7 +41,6 @@ public class editarAluno extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
 
     }
 
@@ -56,8 +56,18 @@ public class editarAluno extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        HttpSession session = request.getSession();
+        Aluno aluno = (Aluno) session.getAttribute("aluno");
 
+        AlunoJpaController alunoControll = new AlunoJpaController();
+        Aluno editar = alunoControll.findAluno(aluno.getMatricula(), aluno.getSenha());
+        
+        EnderecoalunoJpaController endControll = new EnderecoalunoJpaController();
+        Enderecoaluno endereco = endControll.findEnderecoaluno(editar.getEnderecoaluno().getIdEndereco());
+
+        
+        request.setAttribute("perfil", editar);
+        request.setAttribute("endereco", endereco);
         RequestDispatcher page = request.getRequestDispatcher("editarInformacoes.jsp");
         page.forward(request, response);
     }
@@ -70,7 +80,7 @@ public class editarAluno extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-   @Override
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
@@ -79,12 +89,12 @@ public class editarAluno extends HttpServlet {
         Enderecoaluno endAluno = new Enderecoaluno();
 
         AlunoJpaController alunoControl = new AlunoJpaController();
-        EnderecoalunoJpaController endControl = new EnderecoalunoJpaController();
         TelefonealunoJpaController telControl = new TelefonealunoJpaController();
 
         aluno.setNome(request.getParameter("nome"));
         aluno.setCpf(request.getParameter("cpf"));
         aluno.setSexo(request.getParameter("genero"));
+        aluno.setSenha(request.getParameter("senha"));
 
         endAluno.setEstado(request.getParameter("estado"));
         endAluno.setCidade(request.getParameter("cidade"));
@@ -99,7 +109,6 @@ public class editarAluno extends HttpServlet {
 
         try {
             alunoControl.edit(aluno);
-            endControl.edit(endAluno);
             telControl.edit(telAluno);
         } catch (NonexistentEntityException ex) {
             Logger.getLogger(editarAluno.class.getName()).log(Level.SEVERE, null, ex);
@@ -108,6 +117,9 @@ public class editarAluno extends HttpServlet {
         } catch (Exception ex) {
             Logger.getLogger(editarAluno.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+        RequestDispatcher page = request.getRequestDispatcher("PerfilAluno");
+        page.forward(request, response);
     }
 
     /**

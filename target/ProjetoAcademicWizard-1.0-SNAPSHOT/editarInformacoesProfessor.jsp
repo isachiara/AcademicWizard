@@ -17,7 +17,7 @@
     </head>
     <style>
         body{
-            background-color: #585858;
+            background-image: url(imagem.png);
         }
         #all{
             clear: both;
@@ -91,52 +91,46 @@
     <body>
         <div class="container" id="all">
             <header>Solicitar modificação nas informações do professor</header>
-            <nav><ul>
-                    <li><a class="active" href="perfilProfessor.jsp">Home</a></li>
-                    <li><a href="disciplinasProfessor" action="get">Lista Disciplinas</a></li>
-                    <li><a href="editarProfessor" action="get">Editar informações</a></li>
-                    <li style="float:right"><a class="active" href="#about">Deslogar</a></li>
+            <nav><ul id="menu">
+                    <li id="menuItem"><a class="active" href="perfilProfessor.jsp">Home</a></li>
+                    <li id="menuItem"><a href="disciplinasProfessor"> Lista Disciplinas</a></li>
+                    <li id="menuItem"><a href="editarProfessor"> Editar informações</a></li>
+                    <li id="menuItem" style="float:right"><a class="active" href="Logout">Deslogar</a></li>
                 </ul>
             </nav>
             <div class="container" id="corpo">
                 <div>
-                    <form action="editarAluno" method="post">
+                    <form action="EditarProfessor" method="POST">
                         <div id="forms">
-                            <label>Siape:</label></br>
-                            <input type="text" name="siape" value="206548240"/></br>
                             <label>Nome:</label></br>
-                            <input type="text" name="nome" value="Luis Henrique"/></br>
+                            <input type="text" name="nome" value="${perfil.nome}" required="required"/></br>
                             <label>CPF:</label></br>
-                            <input type="text" name="cpf" value="1004587200"/></br>
-                            <label>Curso:</label></br>
-                            <input type="text" name="curso" value="TADS"/></br>
+                            <input type="text" name="cpf" value=${perfil.cpf} required="required"/></br>
                             <label>Sexo:</label></br>
-                            <input type="radio" name="genero" value="M" /> Masculino
-                            <input type="radio" name="genero" value="F" /> Feminino</br>
+                            <input type="radio" name="genero" value="M" required="required"/> Masculino
+                            <input type="radio" name="genero" value="F" required="required"/> Feminino</br>
                             <label>Senha:</label></br>
-                            <input type="password" name="senha" value="senha"/></br>
-                            <label>Telefone:</label></br>
-                            <input type="text" name="telefone" value="158456121"/>
+                            <input type="password" name="senha" value="${perfil.senha}" required="required"/></br>
+                            
                         </div>
                         <div id="forms">
                             <label>Estado:</label></br>
-                            <input type="text" name="estado" value="estado"/></br>
+                            <input type="text" name="estado" value="${endereco.estado}" required="required"/></br>
                             <label>Cidade:</label></br>
-                            <input type="text" name="cidade" value="cidade"/></br>
+                            <input type="text" name="cidade" value="${endereco.cidade}" required="required"/></br>
                             <label>Bairro:</label></br>
-                            <input type="text" name="bairro" value="bairro"/></br>
+                            <input type="text" name="bairro" value="${endereco.bairro}" required="required"/></br>
                             <label>Rua:</label></br>
-                            <input type="text" name="rua" value="rua"/></br>
+                            <input type="text" name="rua" value="${endereco.rua}" required="required"/></br>
                             <label>Numero:</label></br>
-                            <input type="text" name="numero" value="455"/></br>
+                            <input type="text" name="numero" value="${endereco.numero}" required="required"/></br>
                             <label>Cep:</label></br>
-                            <input type="text" name="cep" value="15445200"/></br>
-                            
+                            <input type="text" name="cep" value="${endereco.cep}" required="required"/></br>
                         </div>
-
+                        <button type="submit" class="btn btn-warning btn-block">Concluir </button>
                     </form>
                     </br>
-                    <button type="submit" class="btn btn-warning btn-block">Concluir </button>
+                    
                 </div>
             </div>
             <footer> 10/05/2018 Versão 1.000

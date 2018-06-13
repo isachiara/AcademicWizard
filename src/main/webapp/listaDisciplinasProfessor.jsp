@@ -4,34 +4,8 @@
     Author     : Luis Henrique
 --%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@page import="Controller.*"%>
-<%@page import="Model.*"%>
-<%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-<%       
-    /* Verificando se a sessão está ativa (Manda pra fora ou não?) ------------------------------------
-        Se estiver ativa, permanece na página. Senão, redireciona para página principal */
-    
-    
-    HttpSession sessao = request.getSession();
-    String estaAtivo = (String) session.getAttribute("isActive");
-    
-    List<Disciplina> lista = null;
-    if (estaAtivo == "verdadeiro"){ // Se a sessão estiver ativa
-        // Não faz nada :)
-        DisciplinaJpaController controlDisc = new DisciplinaJpaController();
-        
-        Professor oCara = (Professor) sessao.getAttribute("oCara");
-        
-        lista = controlDisc.findDisciplinas(oCara);
-        
-        request.setAttribute("lista",lista);
-    }else{ // Se estiver desativada
-        // Manda para a página principal
-        response.sendRedirect(request.getContextPath()+ "index.jsp");
-    }  
-%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -44,7 +18,7 @@
     </head>
     <style>
         body{
-            background-color: #585858;
+            background-image: url(imagem.png);
         }
         #all{
             clear: both;
@@ -105,11 +79,11 @@
     <body>
         <div class="container" id = "all">
             <header>Lista das Disciplinas do Curso:</header>
-            <nav><ul>
-                    <li><a class="active" href="perfilProfessor.jsp">Home</a></li>
-                    <li><a href="disciplinasProfessor" action="get">Lista Disciplinas</a></li>
-                    <li><a href="editarProfessor" action="get">Editar informações</a></li>
-                    <li style="float:right"><a class="active" href="#about">Deslogar</a></li>
+            <nav><ul id="menu">
+                    <li id="menuItem"><a class="active" href="perfilProfessor.jsp">Home</a></li>
+                    <li id="menuItem"><a href="disciplinasProfessor"> Lista Disciplinas</a></li>
+                    <li id="menuItem"><a href="editarProfessor"> Editar informações</a></li>
+                    <li id="menuItem" style="float:right"><a class="active" href="Logout">Deslogar</a></li>
                 </ul>
             </nav>
             <div class="container" id="corpo">
