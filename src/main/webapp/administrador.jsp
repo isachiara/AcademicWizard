@@ -89,33 +89,33 @@
                     <form action="CrudAdmin" method="POST">
                         <h4>Formulário Aluno</h4>
                         <label>Matricula:</label>
-                        <input type="text" name="matricula" value="201510240"/></br>
+                        <input type="text" name="matricula" value="201510240" required="required"/></br>
                         <label>Nome:</label>
-                        <input type="text" name="nome" value="Isabella"/></br>
+                        <input type="text" name="nome" value="Isabella" required="required"/></br>
                         <label>CPF:</label>
-                        <input type="text" name="cpf" value="1004587200"/></br>
+                        <input type="text" name="cpf" value="1004587200" required="required"/></br>
                         <label>Curso:</label>
-                        <input type="text" name="curso" value="TADS"/></br>
+                        <input type="text" name="curso" value="TADS" required="required"/></br>
                         <label>Sexo:</label>
-                        <input type="radio" name="genero" value="M" /> Masculino
-                        <input type="radio" name="genero" value="F" /> Feminino</p>
+                        <input type="radio" name="genero" value="M" required="required"/> Masculino
+                        <input type="radio" name="genero" value="F" required="required"/> Feminino</p>
                         <label>Senha:</label>
-                        <input type="password" name="senha" value="senha"/></br>
+                        <input type="password" name="senha" value="senha" required="required"/></br>
 
                         </br>
 
                         <label>Estado:</label>
-                        <input type="text" name="estado" value="estado"/></br>
+                        <input type="text" name="estado" value="estado" required="required"/></br>
                         <label>Cidade:</label>
-                        <input type="text" name="cidade" value="cidade"/></br>
+                        <input type="text" name="cidade" value="cidade" required="required"/></br>
                         <label>Bairro:</label>
-                        <input type="text" name="bairro" value="bairro"/></br>
+                        <input type="text" name="bairro" value="bairro" required="required"/></br>
                         <label>Rua:</label>
-                        <input type="text" name="rua" value="rua"/></br>
+                        <input type="text" name="rua" value="rua" required="required"/></br>
                         <label>Numero:</label>
-                        <input type="text" name="numero" value="455"/></br>
+                        <input type="text" name="numero" value="455" required="required"/></br>
                         <label>Cep:</label>
-                        <input type="text" name="cep" value="15445200"/></br>
+                        <input type="text" name="cep" value="15445200" required="required"/></br>
                         </br>
 
                         <label>Telefone:</label>
@@ -127,35 +127,35 @@
                     <form action="CrudAdminProfessor" method="POST">
                         <h4>Formulário Professor</h4>
                         <label>Siape:</label>
-                        <input type="text" name="siape" value="2091928"/></br>
+                        <input type="text" name="siape" value="2091928" required="required"/></br>
                         <label>Nome:</label>
-                        <input type="text" name="nome" value="Professor01"/></br>
+                        <input type="text" name="nome" value="Professor01" required="required"/></br>
                         <label>CPF:</label>
-                        <input type="text" name="cpf" value="304.222.453-19"/></br>
+                        <input type="text" name="cpf" value="304.222.453-19" required="required"/></br>
                         <label>Sexo:</label>
-                        <input type="radio" name="genero" value="M" /> Masculino
-                        <input type="radio" name="genero" value="F" /> Feminino</p>
+                        <input type="radio" name="genero" value="M" required="required"/> Masculino
+                        <input type="radio" name="genero" value="F" required="required"/> Feminino</p>
                         <label>Curso:</label>
-                        <input type="text" name="curso" value="TADS"/></br>
+                        <input type="text" name="curso" value="TADS" required="required"/></br>
                         <label>Senha:</label>
-                        <input type="text" name="senha" value="senha"/></br>
+                        <input type="text" name="senha" value="senha" required="required"/></br>
                         </br>
                         <label>Estado:</label>
-                        <input type="text" name="estado" value="estado"/></br>
+                        <input type="text" name="estado" value="estado" required="required"/></br>
                         <label>Cidade:</label>
-                        <input type="text" name="cidade" value="cidade"/></br>
+                        <input type="text" name="cidade" value="cidade" required="required"/></br>
                         <label>Bairro:</label>
-                        <input type="text" name="bairro" value="bairro"/></br>
+                        <input type="text" name="bairro" value="bairro" required="required"/></br>
                         <label>Rua:</label>
-                        <input type="text" name="rua" value="rua"/></br>
+                        <input type="text" name="rua" value="rua" required="required"/></br>
                         <label>Numero:</label>
-                        <input type="text" name="numero" value="455"/></br>
+                        <input type="text" name="numero" value="455" required="required"/></br>
                         <label>Cep:</label>
-                        <input type="text" name="cep" value="15445200"/></br>
+                        <input type="text" name="cep" value="15445200" required="required"/></br>
                         </br>
 
                         <label>Telefone:</label>
-                        <input type="text" name="telefone" value="158456121"/></br>
+                        <input type="text" name="telefone" value="158456121" required="required"/></br>
                         </br>
                         <input type="submit" name="submit" value="submit" />
                         </br></br>
@@ -164,15 +164,15 @@
                     <form action="CrudAdminDisciplina" method="POST">
                         <h4>Formulário Disciplina</h4>
                         <label>Nome Disciplina:</label>
-                        <input type="text" name="nome" value="Disciplina01"/></br>
+                        <input type="text" name="nome" value="Disciplina01" required="required"/></br>
                         <label>Carga Horaria</label>
-                        <input type="text" name="carga" value="45 horas"/></br>
+                        <input type="text" name="carga" value="45 horas" required="required"/></br>
                         <label>Horario</label>
-                        <input type="text" name="hora" value="8h"/></br>
+                        <input type="text" name="hora" value="8h" required="required"/></br>
                         <label>Dia(s)</label>
-                        <input type="text" name="dias" value="Segunda e Terça"/></br>
+                        <input type="text" name="dias" value="Segunda e Terça" required="required"/></br>
                         <label>Periodo</label>
-                        <input type="number" name="periodo" value="3º"/></br>
+                        <input type="number" name="periodo" value="3º" required="required"/></br>
                         <label>Requisito</label>
                         <select name="disciplina">
                             <option value="Nenhum">Nenhhum</option>
