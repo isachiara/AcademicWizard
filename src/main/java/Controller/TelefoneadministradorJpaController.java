@@ -17,6 +17,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import Model.Administrador;
 import Model.Telefoneadministrador;
+import Util.EntityManagerSingleton;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -34,7 +35,7 @@ public class TelefoneadministradorJpaController implements Serializable, DAO<Tel
 
     @Override
     public EntityManager getEntityManager() {
-        return EMF.createEntityManager();
+        return EntityManagerSingleton.getInstance();
     }
 
     @Override
@@ -43,7 +44,7 @@ public class TelefoneadministradorJpaController implements Serializable, DAO<Tel
         EntityTransaction et = null;
 
         try {
-            em = EMF.createEntityManager();
+            em = getEntityManager();
             et = em.getTransaction();
 
             et.begin();
@@ -55,7 +56,7 @@ public class TelefoneadministradorJpaController implements Serializable, DAO<Tel
             }
         } finally {
             if (em != null) {
-                em.close();
+                //em.close();
             }
         }
     }
@@ -66,7 +67,7 @@ public class TelefoneadministradorJpaController implements Serializable, DAO<Tel
         EntityTransaction et = null;
 
         try {
-            em = EMF.createEntityManager();
+            em = getEntityManager();
             et = em.getTransaction();
 
             et.begin();
@@ -78,7 +79,7 @@ public class TelefoneadministradorJpaController implements Serializable, DAO<Tel
             }
         } finally {
             if (em != null) {
-                em.close();
+                //em.close();
             }
         }
     }
@@ -89,7 +90,7 @@ public class TelefoneadministradorJpaController implements Serializable, DAO<Tel
         EntityTransaction et = null;
 
         try {
-            em = EMF.createEntityManager();
+            em = getEntityManager();
             et = em.getTransaction();
 
             Telefoneadministrador telefoneAdmRemove = em.merge(telefoneAdm);
@@ -103,7 +104,7 @@ public class TelefoneadministradorJpaController implements Serializable, DAO<Tel
             }
         } finally {
             if (em != null) {
-                em.close();
+                //em.close();
             }
         }
     }
@@ -113,7 +114,7 @@ public class TelefoneadministradorJpaController implements Serializable, DAO<Tel
         try {
             return em.find(Telefoneadministrador.class, id);
         } finally {
-            em.close();
+            //em.close();
         }
     }
 

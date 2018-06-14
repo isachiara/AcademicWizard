@@ -11,6 +11,7 @@ import Controller.exceptions.RollbackFailureException;
 import Daoutil.DAO;
 import java.io.Serializable;
 import Model.Telefoneprofessor;
+import Util.EntityManagerSingleton;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -26,7 +27,7 @@ public class TelefoneprofessorJpaController implements Serializable, DAO<Telefon
 
     @Override
     public EntityManager getEntityManager() {
-        return EMF.createEntityManager();
+        return EntityManagerSingleton.getInstance();
     }
 
     @Override
@@ -35,7 +36,7 @@ public class TelefoneprofessorJpaController implements Serializable, DAO<Telefon
         EntityTransaction et = null;
 
         try {
-            em = EMF.createEntityManager();
+            em = getEntityManager();
             et = em.getTransaction();
 
             et.begin();
@@ -47,7 +48,7 @@ public class TelefoneprofessorJpaController implements Serializable, DAO<Telefon
             }
         } finally {
             if (em != null) {
-                em.close();
+                //em.close();
             }
         }
     }
@@ -58,7 +59,7 @@ public class TelefoneprofessorJpaController implements Serializable, DAO<Telefon
         EntityTransaction et = null;
 
         try {
-            em = EMF.createEntityManager();
+            em = getEntityManager();
             et = em.getTransaction();
 
             et.begin();
@@ -70,7 +71,7 @@ public class TelefoneprofessorJpaController implements Serializable, DAO<Telefon
             }
         } finally {
             if (em != null) {
-                em.close();
+                //em.close();
             }
         }
     }
@@ -81,7 +82,7 @@ public class TelefoneprofessorJpaController implements Serializable, DAO<Telefon
         EntityTransaction et = null;
 
         try {
-            em = EMF.createEntityManager();
+            em = getEntityManager();
             et = em.getTransaction();
 
             Telefoneprofessor telefoneProfessorRemove = em.merge(adm);
@@ -95,7 +96,7 @@ public class TelefoneprofessorJpaController implements Serializable, DAO<Telefon
             }
         } finally {
             if (em != null) {
-                em.close();
+                //em.close();
             }
         }
     }
@@ -105,7 +106,7 @@ public class TelefoneprofessorJpaController implements Serializable, DAO<Telefon
         try {
             return em.find(Telefoneprofessor.class, id);
         } finally {
-            em.close();
+            //em.close();
         }
     }
 

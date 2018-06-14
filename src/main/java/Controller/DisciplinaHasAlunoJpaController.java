@@ -12,6 +12,7 @@ import Daoutil.DAO;
 import java.io.Serializable;
 import Model.DisciplinaHasAluno;
 import Model.DisciplinaHasAlunoPK;
+import Util.EntityManagerSingleton;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -27,7 +28,7 @@ public class DisciplinaHasAlunoJpaController implements Serializable, DAO<Discip
 
     @Override
     public EntityManager getEntityManager() {
-        return EMF.createEntityManager();
+        return EntityManagerSingleton.getInstance();
     }
 
     @Override
@@ -36,7 +37,7 @@ public class DisciplinaHasAlunoJpaController implements Serializable, DAO<Discip
         EntityTransaction et = null;
 
         try {
-            em = EMF.createEntityManager();
+            em = getEntityManager();
             et = em.getTransaction();
 
             et.begin();
@@ -48,7 +49,7 @@ public class DisciplinaHasAlunoJpaController implements Serializable, DAO<Discip
             }
         } finally {
             if (em != null) {
-                em.close();
+                //em.close();
             }
         }
     }
@@ -59,7 +60,7 @@ public class DisciplinaHasAlunoJpaController implements Serializable, DAO<Discip
         EntityTransaction et = null;
 
         try {
-            em = EMF.createEntityManager();
+            em = getEntityManager();
             et = em.getTransaction();
 
             et.begin();
@@ -71,7 +72,7 @@ public class DisciplinaHasAlunoJpaController implements Serializable, DAO<Discip
             }
         } finally {
             if (em != null) {
-                em.close();
+                //em.close();
             }
         }
     }
@@ -82,7 +83,7 @@ public class DisciplinaHasAlunoJpaController implements Serializable, DAO<Discip
         EntityTransaction et = null;
 
         try {
-            em = EMF.createEntityManager();
+            em = getEntityManager();
             et = em.getTransaction();
 
             DisciplinaHasAluno discHasAlunRemove = em.merge(disHasAlun);
@@ -96,7 +97,7 @@ public class DisciplinaHasAlunoJpaController implements Serializable, DAO<Discip
             }
         } finally {
             if (em != null) {
-                em.close();
+                //em.close();
             }
         }
     }
@@ -106,7 +107,7 @@ public class DisciplinaHasAlunoJpaController implements Serializable, DAO<Discip
         try {
             return em.find(DisciplinaHasAluno.class, id);
         } finally {
-            em.close();
+            //em.close();
         }
     }
 

@@ -10,6 +10,7 @@ import Controller.exceptions.NonexistentEntityException;
 import Controller.exceptions.RollbackFailureException;
 import Daoutil.DAO;
 import Model.Enderecoprofessor;
+import Util.EntityManagerSingleton;
 import java.io.Serializable;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -26,7 +27,7 @@ public class EnderecoprofessorJpaController implements Serializable, DAO<Enderec
 
     @Override
     public EntityManager getEntityManager() {
-        return EMF.createEntityManager();
+        return EntityManagerSingleton.getInstance();
     }
 
     @Override
@@ -35,7 +36,7 @@ public class EnderecoprofessorJpaController implements Serializable, DAO<Enderec
         EntityTransaction et = null;
 
         try {
-            em = EMF.createEntityManager();
+            em = getEntityManager();
             et = em.getTransaction();
 
             et.begin();
@@ -47,7 +48,7 @@ public class EnderecoprofessorJpaController implements Serializable, DAO<Enderec
             }
         } finally {
             if (em != null) {
-                em.close();
+                //em.close();
             }
         }
     }
@@ -58,7 +59,7 @@ public class EnderecoprofessorJpaController implements Serializable, DAO<Enderec
         EntityTransaction et = null;
 
         try {
-            em = EMF.createEntityManager();
+            em = getEntityManager();
             et = em.getTransaction();
 
             et.begin();
@@ -70,7 +71,7 @@ public class EnderecoprofessorJpaController implements Serializable, DAO<Enderec
             }
         } finally {
             if (em != null) {
-                em.close();
+                //em.close();
             }
         }
     }
@@ -81,7 +82,7 @@ public class EnderecoprofessorJpaController implements Serializable, DAO<Enderec
         EntityTransaction et = null;
 
         try {
-            em = EMF.createEntityManager();
+            em = getEntityManager();
             et = em.getTransaction();
 
             Enderecoprofessor enderecoProfessorRemove = em.merge(enderecoProfessor);
@@ -95,7 +96,7 @@ public class EnderecoprofessorJpaController implements Serializable, DAO<Enderec
             }
         } finally {
             if (em != null) {
-                em.close();
+                //em.close();
             }
         }
     }
@@ -105,7 +106,7 @@ public class EnderecoprofessorJpaController implements Serializable, DAO<Enderec
         try {
             return em.find(Enderecoprofessor.class, id);
         } finally {
-            em.close();
+            //em.close();
         }
     }
 

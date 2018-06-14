@@ -12,6 +12,7 @@ import Daoutil.DAO;
 import Model.Aluno;
 import java.io.Serializable;
 import Model.Enderecoaluno;
+import Util.EntityManagerSingleton;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -30,7 +31,7 @@ public class EnderecoalunoJpaController implements Serializable, DAO<Enderecoalu
     
     @Override
     public EntityManager getEntityManager() {
-        return EMF.createEntityManager();
+        return EntityManagerSingleton.getInstance();
     }
 
     @Override
@@ -39,7 +40,7 @@ public class EnderecoalunoJpaController implements Serializable, DAO<Enderecoalu
         EntityTransaction et = null;
 
         try {
-            em = EMF.createEntityManager();
+            em = getEntityManager();
             et = em.getTransaction();
 
             et.begin();
@@ -51,7 +52,7 @@ public class EnderecoalunoJpaController implements Serializable, DAO<Enderecoalu
             }
         } finally {
             if (em != null) {
-                em.close();
+                //em.close();
             }
         }
     }
@@ -62,7 +63,7 @@ public class EnderecoalunoJpaController implements Serializable, DAO<Enderecoalu
         EntityTransaction et = null;
 
         try {
-            em = EMF.createEntityManager();
+            em = getEntityManager();
             et = em.getTransaction();
 
             et.begin();
@@ -74,7 +75,7 @@ public class EnderecoalunoJpaController implements Serializable, DAO<Enderecoalu
             }
         } finally {
             if (em != null) {
-                em.close();
+                //em.close();
             }
         }
     }
@@ -85,7 +86,7 @@ public class EnderecoalunoJpaController implements Serializable, DAO<Enderecoalu
         EntityTransaction et = null;
 
         try {
-            em = EMF.createEntityManager();
+            em = getEntityManager();
             et = em.getTransaction();
 
             Enderecoaluno enderecoAlunoRemove = em.merge(enderecoAluno);
@@ -99,7 +100,7 @@ public class EnderecoalunoJpaController implements Serializable, DAO<Enderecoalu
             }
         } finally {
             if (em != null) {
-                em.close();
+                //em.close();
             }
         }
     }
@@ -109,7 +110,7 @@ public class EnderecoalunoJpaController implements Serializable, DAO<Enderecoalu
         try {
             return em.find(Enderecoaluno.class, id);
         } finally {
-            em.close();
+            //em.close();
         }
     }
 

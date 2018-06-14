@@ -10,6 +10,7 @@ import Controller.exceptions.NonexistentEntityException;
 import Controller.exceptions.RollbackFailureException;
 import Daoutil.DAO;
 import Model.Administrador;
+import Util.EntityManagerSingleton;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -27,7 +28,7 @@ public class AdministradorJpaController implements Serializable, DAO<Administrad
 
     @Override
     public EntityManager getEntityManager() {
-        return EMF.createEntityManager();
+        return EntityManagerSingleton.getInstance();
     }
 
     /**
@@ -42,7 +43,7 @@ public class AdministradorJpaController implements Serializable, DAO<Administrad
         EntityTransaction et = null;
 
         try {
-            em = EMF.createEntityManager();
+            em = getEntityManager();
             et = em.getTransaction();
 
             et.begin();
@@ -54,7 +55,7 @@ public class AdministradorJpaController implements Serializable, DAO<Administrad
             }
         } finally {
             if (em != null) {
-                em.close();
+                //em.close();
             }
         }
     }
@@ -65,7 +66,7 @@ public class AdministradorJpaController implements Serializable, DAO<Administrad
         EntityTransaction et = null;
 
         try {
-            em = EMF.createEntityManager();
+            em = getEntityManager();
             et = em.getTransaction();
 
             et.begin();
@@ -77,7 +78,7 @@ public class AdministradorJpaController implements Serializable, DAO<Administrad
             }
         } finally {
             if (em != null) {
-                em.close();
+                //em.close();
             }
         }
     }
@@ -96,7 +97,7 @@ public class AdministradorJpaController implements Serializable, DAO<Administrad
         EntityTransaction et = null;
 
         try {
-            em = EMF.createEntityManager();
+            em = getEntityManager();
             et = em.getTransaction();
 
             Administrador admRemove = em.merge(adm);
@@ -110,7 +111,7 @@ public class AdministradorJpaController implements Serializable, DAO<Administrad
             }
         } finally {
             if (em != null) {
-                em.close();
+                //em.close();
             }
         }
     }
@@ -120,7 +121,7 @@ public class AdministradorJpaController implements Serializable, DAO<Administrad
         try {
             return em.find(Administrador.class, id);
         } finally {
-            em.close();
+            //em.close();
         }
     }
 

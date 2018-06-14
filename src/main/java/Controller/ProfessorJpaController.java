@@ -11,6 +11,7 @@ import Controller.exceptions.RollbackFailureException;
 import Daoutil.DAO;
 import java.io.Serializable;
 import Model.Professor;
+import Util.EntityManagerSingleton;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -29,7 +30,7 @@ public class ProfessorJpaController implements Serializable, DAO<Professor> {
 
     @Override
     public EntityManager getEntityManager() {
-        return EMF.createEntityManager();
+        return EntityManagerSingleton.getInstance();
     }
 
     @Override
@@ -38,7 +39,7 @@ public class ProfessorJpaController implements Serializable, DAO<Professor> {
         EntityTransaction et = null;
 
         try {
-            em = EMF.createEntityManager();
+            em = getEntityManager();
             et = em.getTransaction();
 
             et.begin();
@@ -50,7 +51,7 @@ public class ProfessorJpaController implements Serializable, DAO<Professor> {
             }
         } finally {
             if (em != null) {
-                em.close();
+                //em.close();
             }
         }
     }
@@ -61,7 +62,7 @@ public class ProfessorJpaController implements Serializable, DAO<Professor> {
         EntityTransaction et = null;
 
         try {
-            em = EMF.createEntityManager();
+            em = getEntityManager();
             et = em.getTransaction();
 
             et.begin();
@@ -73,7 +74,7 @@ public class ProfessorJpaController implements Serializable, DAO<Professor> {
             }
         } finally {
             if (em != null) {
-                em.close();
+                //em.close();
             }
         }
     }
@@ -84,7 +85,7 @@ public class ProfessorJpaController implements Serializable, DAO<Professor> {
         EntityTransaction et = null;
 
         try {
-            em = EMF.createEntityManager();
+            em = getEntityManager();
             et = em.getTransaction();
 
             Professor professorRemove = em.merge(professor);
@@ -98,7 +99,7 @@ public class ProfessorJpaController implements Serializable, DAO<Professor> {
             }
         } finally {
             if (em != null) {
-                em.close();
+                //em.close();
             }
         }
     }
@@ -112,7 +113,7 @@ public class ProfessorJpaController implements Serializable, DAO<Professor> {
         query.setParameter("senha", Senha);
         
         List<Professor> alunos = query.getResultList();
-        em.close();
+        //em.close();
         return !alunos.isEmpty();
 
     }
@@ -124,7 +125,7 @@ public class ProfessorJpaController implements Serializable, DAO<Professor> {
         query.setParameter("siape", Siape);
         
         List<Professor> professor = query.getResultList();
-        em.close();
+        //em.close();
         return professor;
 
     }
@@ -135,7 +136,7 @@ public class ProfessorJpaController implements Serializable, DAO<Professor> {
                 "SELECT p FROM Professor p", Professor.class);
         List<Professor> professores = query.getResultList();
         
-        em.close();
+        //em.close();
         return professores;
     }
     

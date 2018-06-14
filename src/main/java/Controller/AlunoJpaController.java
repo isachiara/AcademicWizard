@@ -10,6 +10,7 @@ import Controller.exceptions.NonexistentEntityException;
 import Controller.exceptions.RollbackFailureException;
 import Daoutil.DAO;
 import Model.Aluno;
+import Util.EntityManagerSingleton;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +31,7 @@ public class AlunoJpaController implements Serializable, DAO<Aluno> {
 
     @Override
     public EntityManager getEntityManager() {
-        return EMF.createEntityManager();
+        return EntityManagerSingleton.getInstance();
     }
 
     /**
@@ -45,7 +46,7 @@ public class AlunoJpaController implements Serializable, DAO<Aluno> {
         EntityTransaction et = null;
 
         try {
-            em = EMF.createEntityManager();
+            em = getEntityManager();
             et = em.getTransaction();
 
             et.begin();
@@ -57,7 +58,7 @@ public class AlunoJpaController implements Serializable, DAO<Aluno> {
             }
         } finally {
             if (em != null) {
-                em.close();
+                //em.close();
             }
         }
     }
@@ -68,7 +69,7 @@ public class AlunoJpaController implements Serializable, DAO<Aluno> {
         EntityTransaction et = null;
 
         try {
-            em = EMF.createEntityManager();
+            em = getEntityManager();
             et = em.getTransaction();
 
             et.begin();
@@ -80,7 +81,7 @@ public class AlunoJpaController implements Serializable, DAO<Aluno> {
             }
         } finally {
             if (em != null) {
-                em.close();
+                //em.close();
             }
         }
     }
@@ -91,7 +92,7 @@ public class AlunoJpaController implements Serializable, DAO<Aluno> {
         EntityTransaction et = null;
 
         try {
-            em = EMF.createEntityManager();
+            em = getEntityManager();
             et = em.getTransaction();
 
             Aluno alunoRemove = em.merge(aluno);
@@ -105,7 +106,7 @@ public class AlunoJpaController implements Serializable, DAO<Aluno> {
             }
         } finally {
             if (em != null) {
-                em.close();
+                //em.close();
             }
         }
     }
@@ -119,7 +120,7 @@ public class AlunoJpaController implements Serializable, DAO<Aluno> {
         query.setParameter("senha", Senha);
         
         aluno = (Aluno) query.getSingleResult();
-        em.close();
+        //em.close();
         
         return aluno;
 

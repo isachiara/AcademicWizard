@@ -11,6 +11,7 @@ import Controller.exceptions.RollbackFailureException;
 import Daoutil.DAO;
 import Model.Disciplina;
 import Model.Professor;
+import Util.EntityManagerSingleton;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +32,7 @@ public class DisciplinaJpaController implements Serializable, DAO<Disciplina> {
 
     @Override
     public EntityManager getEntityManager() {
-        return EMF.createEntityManager();
+        return EntityManagerSingleton.getInstance();
     }
 
     @Override
@@ -40,7 +41,7 @@ public class DisciplinaJpaController implements Serializable, DAO<Disciplina> {
         EntityTransaction et = null;
 
         try {
-            em = EMF.createEntityManager();
+            em = getEntityManager();
             et = em.getTransaction();
 
             et.begin();
@@ -52,7 +53,7 @@ public class DisciplinaJpaController implements Serializable, DAO<Disciplina> {
             }
         } finally {
             if (em != null) {
-                em.close();
+                //em.close();
             }
         }
     }
@@ -63,7 +64,7 @@ public class DisciplinaJpaController implements Serializable, DAO<Disciplina> {
         EntityTransaction et = null;
 
         try {
-            em = EMF.createEntityManager();
+            em = getEntityManager();
             et = em.getTransaction();
 
             et.begin();
@@ -75,7 +76,7 @@ public class DisciplinaJpaController implements Serializable, DAO<Disciplina> {
             }
         } finally {
             if (em != null) {
-                em.close();
+                //em.close();
             }
         }
     }
@@ -86,7 +87,7 @@ public class DisciplinaJpaController implements Serializable, DAO<Disciplina> {
         EntityTransaction et = null;
 
         try {
-            em = EMF.createEntityManager();
+            em = getEntityManager();
             et = em.getTransaction();
 
             Disciplina disciplinaRemove = em.merge(disciplina);
@@ -100,7 +101,7 @@ public class DisciplinaJpaController implements Serializable, DAO<Disciplina> {
             }
         } finally {
             if (em != null) {
-                em.close();
+                //em.close();
             }
         }
     }
@@ -119,7 +120,7 @@ public class DisciplinaJpaController implements Serializable, DAO<Disciplina> {
                 "SELECT d FROM Disciplina d", Disciplina.class);
         List<Disciplina> aulas = query.getResultList();
         
-        em.close();
+        //em.close();
         return aulas;
     }
     
