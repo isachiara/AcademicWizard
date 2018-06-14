@@ -82,7 +82,7 @@
             <header>Bem vindo Professor!</header>
             <nav><ul id="menu">
                     <li id="menuItem"><a class="active" href="perfilProfessor.jsp">Home</a></li>
-                    <li id="menuItem"><a href="disciplinasProfessor"> Lista Disciplinas</a></li>
+                    <li id="menuItem"><a href="listaDisciplinasProfessor"> Lista Disciplinas</a></li>
                     <li id="menuItem"><a href="editarProfessor"> Editar informações</a></li>
                     <li id="menuItem" style="float:right"><a class="active" href="Logout">Deslogar</a></li>
                 </ul>

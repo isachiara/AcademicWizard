@@ -81,7 +81,7 @@
             <header>Matriculas</header>
           <nav><ul id="menu">
                     <li id="menuItem"><a class="active" href="perfilAluno.jsp">Home</a></li>
-                    <li id="menuItem"><a href="matricula" action="get">Matriculas</a></li>
+                    <li id="menuItem"><a href="MatriculaDisciplina" method="get">Matriculas</a></li>
                     <li id="menuItem"><a href="disciplinas">Lista Disciplinas</a></li>
                     <li id="menuItem"><a href="editarAluno">Editar informações</a></li>
                     <li id="menuItem" style="float:right"><a class="active" href="Logout">Deslogar</a></li>
@@ -89,26 +89,28 @@
             </nav>
             <div class="container" id="corpo">
 
-                <form action="matricula" method="post">
+                <form action="MatriculaDisciplina" method="post">
                     <table class="table table-striped" id="myTable">
                         <tr>
                             <th onclick="sortTable(0)">Nome: </th>
-                            <th onclick="sortTable(1)">Horario: </th>
+                            <th onclick="sortTable(1)">Periodo: </th>
                             <th>Marcar:</th>
 
                         </tr>
-                        <c:forEach items="${lista}" var="disciplina">
+                        <c:forEach items="${disciplinas}" var="disciplina">
                             <tr>
                                 <td>${disciplina.nome}</td>
-                                <td>${disciplina.horario}</td>
-                                <td><input type="checkbox" name="disciplina" value="${disciplina}" /></td>
+                                <td>${disciplina.periodo}</td>
+                                <td><input type="checkbox" value="Disciplina01" name="matricula" /></td>
                             </tr>
                         </c:forEach>
 
                     </table>
+                    <button type="submit" class="btn btn-warning btn-block" value="submit">Concluir </button>
+                   
                 </form>
 
-                <button type="button" class="btn btn-warning btn-block">Concluir </button>
+                
             </div>
             <footer> 10/05/2018 Versão 1.000
                 © 2018 AcademicWizard</footer>

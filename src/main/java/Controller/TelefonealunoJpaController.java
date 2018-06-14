@@ -8,8 +8,10 @@ package Controller;
 import Controller.exceptions.IllegalOrphanException;
 import Controller.exceptions.NonexistentEntityException;
 import Controller.exceptions.RollbackFailureException;
+import DAOUtil.DAO;
 import java.io.Serializable;
 import Model.Telefonealuno;
+import Util.EntityManagerSingleton;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -19,12 +21,13 @@ import javax.persistence.Persistence;
  *
  * @author Henrique
  */
-public class TelefonealunoJpaController implements Serializable {
+public class TelefonealunoJpaController implements Serializable, DAO<Telefonealuno> {
 
-     private final static EntityManagerFactory EMF = Persistence.createEntityManagerFactory("AcademicPU");
+    private final static EntityManagerFactory EMF = Persistence.createEntityManagerFactory("AcademicPU");
 
+    @Override
     public EntityManager getEntityManager() {
-        return EMF.createEntityManager();
+        return EntityManagerSingleton.getInstance();
     }
 
     public void create(Telefonealuno telefoneAluno) throws RollbackFailureException, Exception {
@@ -32,7 +35,7 @@ public class TelefonealunoJpaController implements Serializable {
         EntityTransaction et = null;
 
         try {
-            em = EMF.createEntityManager();
+            em = getEntityManager();
             et = em.getTransaction();
 
             et.begin();
@@ -44,7 +47,7 @@ public class TelefonealunoJpaController implements Serializable {
             }
         } finally {
             if (em != null) {
-                em.close();
+                //em.close();
             }
         }
     }
@@ -54,7 +57,7 @@ public class TelefonealunoJpaController implements Serializable {
         EntityTransaction et = null;
 
         try {
-            em = EMF.createEntityManager();
+            em = getEntityManager();
             et = em.getTransaction();
 
             et.begin();
@@ -66,7 +69,7 @@ public class TelefonealunoJpaController implements Serializable {
             }
         } finally {
             if (em != null) {
-                em.close();
+                //em.close();
             }
         }
     }
@@ -76,7 +79,7 @@ public class TelefonealunoJpaController implements Serializable {
         EntityTransaction et = null;
 
         try {
-            em = EMF.createEntityManager();
+            em = getEntityManager();
             et = em.getTransaction();
 
             Telefonealuno telefoneAlunoRemove = em.merge(telefoneAluno);
@@ -90,7 +93,7 @@ public class TelefonealunoJpaController implements Serializable {
             }
         } finally {
             if (em != null) {
-                em.close();
+                // em.close();
             }
         }
     }
@@ -100,7 +103,12 @@ public class TelefonealunoJpaController implements Serializable {
         try {
             return em.find(Telefonealuno.class, id);
         } finally {
-            em.close();
+            // em.close();
         }
+    }
+
+    @Override
+    public Telefonealuno find(Telefonealuno entity) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

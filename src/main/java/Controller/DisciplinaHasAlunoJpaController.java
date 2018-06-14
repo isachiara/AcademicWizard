@@ -8,9 +8,10 @@ package Controller;
 import Controller.exceptions.IllegalOrphanException;
 import Controller.exceptions.NonexistentEntityException;
 import Controller.exceptions.RollbackFailureException;
+import DAOUtil.DAO;
 import java.io.Serializable;
 import Model.DisciplinaHasAluno;
-import Model.DisciplinaHasAlunoPK;
+import Util.EntityManagerSingleton;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -20,20 +21,22 @@ import javax.persistence.Persistence;
  *
  * @author Henrique
  */
-public class DisciplinaHasAlunoJpaController implements Serializable {
+public class DisciplinaHasAlunoJpaController implements Serializable,DAO<DisciplinaHasAluno> {
 
      private final static EntityManagerFactory EMF = Persistence.createEntityManagerFactory("AcademicPU");
 
+    @Override
     public EntityManager getEntityManager() {
-        return EMF.createEntityManager();
+        return EntityManagerSingleton.getInstance();
     }
+
 
     public void create(DisciplinaHasAluno discHasAlun) throws RollbackFailureException, Exception {
         EntityManager em = null;
         EntityTransaction et = null;
 
         try {
-            em = EMF.createEntityManager();
+            em = getEntityManager();
             et = em.getTransaction();
 
             et.begin();
@@ -45,7 +48,7 @@ public class DisciplinaHasAlunoJpaController implements Serializable {
             }
         } finally {
             if (em != null) {
-                em.close();
+               // em.close();
             }
         }
     }
@@ -55,7 +58,7 @@ public class DisciplinaHasAlunoJpaController implements Serializable {
         EntityTransaction et = null;
 
         try {
-            em = EMF.createEntityManager();
+            em = getEntityManager();
             et = em.getTransaction();
 
             et.begin();
@@ -67,7 +70,7 @@ public class DisciplinaHasAlunoJpaController implements Serializable {
             }
         } finally {
             if (em != null) {
-                em.close();
+                //em.close();
             }
         }
     }
@@ -77,7 +80,7 @@ public class DisciplinaHasAlunoJpaController implements Serializable {
         EntityTransaction et = null;
 
         try {
-            em = EMF.createEntityManager();
+            em = getEntityManager();
             et = em.getTransaction();
 
             DisciplinaHasAluno discHasAlunRemove = em.merge(disHasAlun);
@@ -91,18 +94,23 @@ public class DisciplinaHasAlunoJpaController implements Serializable {
             }
         } finally {
             if (em != null) {
-                em.close();
+               // em.close();
             }
         }
     }
 
-    public DisciplinaHasAluno findDisciplinaHasAluno(DisciplinaHasAlunoPK id) {
+    public DisciplinaHasAluno findDisciplinaHasAluno(int id) {
         EntityManager em = getEntityManager();
         try {
             return em.find(DisciplinaHasAluno.class, id);
         } finally {
-            em.close();
+            //em.close();
         }
+    }
+
+    @Override
+    public DisciplinaHasAluno find(DisciplinaHasAluno entity) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

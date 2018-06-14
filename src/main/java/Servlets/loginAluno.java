@@ -5,17 +5,9 @@ package Servlets;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-import Controller.AdministradorJpaController;
 import Controller.AlunoJpaController;
-import Controller.EnderecoalunoJpaController;
-import Model.Administrador;
 import Model.Aluno;
-import Model.Enderecoaluno;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

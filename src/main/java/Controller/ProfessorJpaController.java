@@ -8,8 +8,10 @@ package Controller;
 import Controller.exceptions.IllegalOrphanException;
 import Controller.exceptions.NonexistentEntityException;
 import Controller.exceptions.RollbackFailureException;
+import DAOUtil.DAO;
 import java.io.Serializable;
 import Model.Professor;
+import Util.EntityManagerSingleton;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -22,12 +24,13 @@ import javax.persistence.TypedQuery;
  *
  * @author Henrique
  */
-public class ProfessorJpaController implements Serializable {
+public class ProfessorJpaController implements Serializable, DAO<Professor> {
 
     private final static EntityManagerFactory EMF = Persistence.createEntityManagerFactory("AcademicPU");
 
+    @Override
     public EntityManager getEntityManager() {
-        return EMF.createEntityManager();
+        return EntityManagerSingleton.getInstance();
     }
 
     public void create(Professor professor) throws RollbackFailureException, Exception {
@@ -35,7 +38,7 @@ public class ProfessorJpaController implements Serializable {
         EntityTransaction et = null;
 
         try {
-            em = EMF.createEntityManager();
+            em = getEntityManager();
             et = em.getTransaction();
 
             et.begin();
@@ -47,7 +50,7 @@ public class ProfessorJpaController implements Serializable {
             }
         } finally {
             if (em != null) {
-                em.close();
+                // em.close();
             }
         }
     }
@@ -57,7 +60,7 @@ public class ProfessorJpaController implements Serializable {
         EntityTransaction et = null;
 
         try {
-            em = EMF.createEntityManager();
+            em = getEntityManager();
             et = em.getTransaction();
 
             et.begin();
@@ -69,7 +72,7 @@ public class ProfessorJpaController implements Serializable {
             }
         } finally {
             if (em != null) {
-                em.close();
+                //  em.close();
             }
         }
     }
@@ -79,7 +82,7 @@ public class ProfessorJpaController implements Serializable {
         EntityTransaction et = null;
 
         try {
-            em = EMF.createEntityManager();
+            em = getEntityManager();
             et = em.getTransaction();
 
             Professor professorRemove = em.merge(professor);
@@ -93,61 +96,67 @@ public class ProfessorJpaController implements Serializable {
             }
         } finally {
             if (em != null) {
-                em.close();
+                // em.close();
             }
         }
     }
 
     public boolean findProfessor(String Siape, String Senha) {
         EntityManager em = getEntityManager();
-        
+
         TypedQuery<Professor> query = em.createQuery(
                 "SELECT a FROM Professor a WHERE a.siape LIKE :siape AND a.senha LIKE :senha", Professor.class);
         query.setParameter("siape", Siape);
         query.setParameter("senha", Senha);
-        
+
         List<Professor> alunos = query.getResultList();
-        em.clear();
-        em.close();
+
+        // em.close();
         return !alunos.isEmpty();
 
     }
+
     public Professor findProfessor(String Siape) {
         EntityManager em = getEntityManager();
-        
+
         Query query = em.createQuery(
                 "SELECT a FROM Professor a WHERE a.siape LIKE ?1", Professor.class);
         query.setParameter(1, Siape);
-        
-        Professor professor = (Professor)query.getSingleResult();
-        em.clear();
-        em.close();
+        if (query.getSingleResult() == null) {
+            return null;
+        }
+        Professor professor = (Professor) query.getSingleResult();
+        //em.close();
         return professor;
 
     }
-    public List<Professor> getAllProfessores(){
+
+    public List<Professor> getAllProfessores() {
         EntityManager em = getEntityManager();
-        
+
         TypedQuery<Professor> query = em.createQuery(
                 "SELECT p FROM Professor p", Professor.class);
         List<Professor> professores = query.getResultList();
-        
-        em.clear();
-        em.close();
+
+        //em.close();
         return professores;
     }
-    
-    public Professor verificaLogin(String siape, String senha){
+
+    public Professor verificaLogin(String siape, String senha) {
         Professor usuarioEncontrado;
         EntityManager em = getEntityManager();
-        
+
         Query q = em.createQuery("SELECT p FROM Professor p WHERE p.siape = ?1 AND p.senha = ?2", Professor.class);
         q.setParameter(1, siape);
         q.setParameter(2, senha);
         usuarioEncontrado = (Professor) q.getSingleResult();
-        
-        em.clear();
-        em.close();
+
+        //em.close();
         return usuarioEncontrado;
+    }
+
+    @Override
+    public Professor find(Professor entity) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

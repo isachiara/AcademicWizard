@@ -18,7 +18,7 @@
     </servlet>
     <servlet>
         <servlet-name>ListaDisciplinasProfessor</servlet-name>
-        <servlet-class>Controller.ListaDisciplinasProfessor</servlet-class>
+        <servlet-class>Servlets.ListaDisciplinasProfessor</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>LoginProfessor</servlet-name>
@@ -51,6 +51,14 @@
     <servlet>
         <servlet-name>PerfilProfessor</servlet-name>
         <servlet-class>Servlets.PerfilProfessor</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MatriculaDisciplina</servlet-name>
+        <servlet-class>Servlets.MatriculaDisciplina</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LoginAdmin</servlet-name>
+        <servlet-class>Servlets.LoginAdmin</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>CrudAdmin</servlet-name>
@@ -103,6 +111,14 @@
     <servlet-mapping>
         <servlet-name>PerfilProfessor</servlet-name>
         <url-pattern>/PerfilProfessor</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MatriculaDisciplina</servlet-name>
+        <url-pattern>/MatriculaDisciplina</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoginAdmin</servlet-name>
+        <url-pattern>/loginAdmin</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

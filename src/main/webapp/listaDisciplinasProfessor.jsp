@@ -91,16 +91,13 @@
                 <table class="table table-striped" id="myTable">
                     <tr>
                         <th onclick="sortTable(0)">Nome: </th>
-                        <th onclick="sortTable(1)">Horario: </th>
-                        <th onclick="sortTable(2)">Periodo: </th>
-                        <th onclick="sortTable(3)">Requisito: </th>
+                        <th></th>
                     </tr>
-                    <c:forEach items="${lista}" var="disciplina">
+                    <c:forEach items="${disciplinas}" var="disciplina">
                         <tr>
                             <td>${disciplina.nome}</td>
-                            <td>${disciplina.horario}</td>
-                            <td>${disciplina.periodo}</td>
-                            <td>${disciplina.requisito}</td>
+                            <td><input type="submit" name="submit" value="More" /></td>
+                            
                         </tr>
                     </c:forEach>
                 </table>

@@ -10,6 +10,9 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
@@ -26,17 +29,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "disciplina_has_aluno")
 @XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "DisciplinaHasAluno.findAll", query = "SELECT d FROM DisciplinaHasAluno d")
-    , @NamedQuery(name = "DisciplinaHasAluno.findByDisciplinaidDisciplina", query = "SELECT d FROM DisciplinaHasAluno d WHERE d.disciplinaHasAlunoPK.disciplinaidDisciplina = :disciplinaidDisciplina")
-    , @NamedQuery(name = "DisciplinaHasAluno.findByAlunoMatricula", query = "SELECT d FROM DisciplinaHasAluno d WHERE d.disciplinaHasAlunoPK.alunoMatricula = :alunoMatricula")
-    , @NamedQuery(name = "DisciplinaHasAluno.findByEstadoDisciplina", query = "SELECT d FROM DisciplinaHasAluno d WHERE d.estadoDisciplina = :estadoDisciplina")
-    , @NamedQuery(name = "DisciplinaHasAluno.findByNota", query = "SELECT d FROM DisciplinaHasAluno d WHERE d.nota = :nota")})
 public class DisciplinaHasAluno implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected DisciplinaHasAlunoPK disciplinaHasAlunoPK;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "IDDisciplinaHasAluno")
+    private Integer IDDisciplinaHasAluno;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
@@ -56,26 +56,22 @@ public class DisciplinaHasAluno implements Serializable {
     public DisciplinaHasAluno() {
     }
 
-    public DisciplinaHasAluno(DisciplinaHasAlunoPK disciplinaHasAlunoPK) {
-        this.disciplinaHasAlunoPK = disciplinaHasAlunoPK;
+    public DisciplinaHasAluno(int IDDisciplinaHasAluno) {
+        this.IDDisciplinaHasAluno = IDDisciplinaHasAluno;
     }
 
-    public DisciplinaHasAluno(DisciplinaHasAlunoPK disciplinaHasAlunoPK, String estadoDisciplina, float nota) {
-        this.disciplinaHasAlunoPK = disciplinaHasAlunoPK;
+    public DisciplinaHasAluno(int IDDisciplinaHasAluno, String estadoDisciplina, float nota) {
+        this.IDDisciplinaHasAluno = IDDisciplinaHasAluno;
         this.estadoDisciplina = estadoDisciplina;
         this.nota = nota;
     }
 
-    public DisciplinaHasAluno(int disciplinaidDisciplina, int alunoMatricula) {
-        this.disciplinaHasAlunoPK = new DisciplinaHasAlunoPK(disciplinaidDisciplina, alunoMatricula);
+    public int getDisciplinaHasAlunoID() {
+        return IDDisciplinaHasAluno;
     }
 
-    public DisciplinaHasAlunoPK getDisciplinaHasAlunoPK() {
-        return disciplinaHasAlunoPK;
-    }
-
-    public void setDisciplinaHasAlunoPK(DisciplinaHasAlunoPK disciplinaHasAlunoPK) {
-        this.disciplinaHasAlunoPK = disciplinaHasAlunoPK;
+    public void setDisciplinaHasAlunoID(int IDDisciplinaHasAluno) {
+        this.IDDisciplinaHasAluno = IDDisciplinaHasAluno;
     }
 
     public String getEstadoDisciplina() {
@@ -110,10 +106,10 @@ public class DisciplinaHasAluno implements Serializable {
         this.disciplina = disciplina;
     }
 
-    @Override
+    /* @Override
     public int hashCode() {
         int hash = 0;
-        hash += (disciplinaHasAlunoPK != null ? disciplinaHasAlunoPK.hashCode() : 0);
+        hash += (IDDisciplinaHasAluno != null ? IDDisciplinaHasAluno.hashCode() : 0);
         return hash;
     }
 
@@ -124,15 +120,14 @@ public class DisciplinaHasAluno implements Serializable {
             return false;
         }
         DisciplinaHasAluno other = (DisciplinaHasAluno) object;
-        if ((this.disciplinaHasAlunoPK == null && other.disciplinaHasAlunoPK != null) || (this.disciplinaHasAlunoPK != null && !this.disciplinaHasAlunoPK.equals(other.disciplinaHasAlunoPK))) {
+        if ((this.IDDisciplinaHasAluno == null && other.IDDisciplinaHasAluno != null) || (this.IDDisciplinaHasAluno != null && !this.IDDisciplinaHasAluno.equals(other.IDDisciplinaHasAluno))) {
             return false;
         }
         return true;
-    }
-
+    }*/
     @Override
     public String toString() {
-        return "Model.DisciplinaHasAluno[ disciplinaHasAlunoPK=" + disciplinaHasAlunoPK + " ]";
+        return "Model.DisciplinaHasAluno[ disciplinaHasAlunoPK=" + IDDisciplinaHasAluno + " ]";
     }
-    
+
 }

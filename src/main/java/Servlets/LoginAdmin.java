@@ -3,9 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Controller;
+package Servlets;
 
+import Controller.AdministradorJpaController;
+import Controller.DisciplinaJpaController;
+import Controller.ProfessorJpaController;
+import Model.Administrador;
 import Model.Disciplina;
+import Model.Professor;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -17,9 +22,9 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Henrique
+ * @author Edu
  */
-public class ListaDisciplinasProfessor extends HttpServlet {
+public class LoginAdmin extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,11 +37,8 @@ public class ListaDisciplinasProfessor extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-
-        }
+        RequestDispatcher page = request.getRequestDispatcher("loginAdm.jsp");
+        page.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -65,17 +67,34 @@ public class ListaDisciplinasProfessor extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
-        
-        DisciplinaJpaController disciplinaControl = new DisciplinaJpaController();
+        Administrador adm = new Administrador();
+        AdministradorJpaController admControll = new AdministradorJpaController();
+        adm.setUsuario(request.getParameter("usuario"));
+        adm.setSenha(request.getParameter("senha"));
 
-        List<Disciplina> disciplina = disciplinaControl.getAllDisciplinas();
-        request.setAttribute("disciplinas", disciplina);
-        
-        RequestDispatcher r = request.getRequestDispatcher("listaDisciplinasProfessor.jsp");
-        r.forward(request, response);
+        if (admControll.findAdm(adm.getUsuario(), adm.getSenha())) {
+            DisciplinaJpaController disciControll = new DisciplinaJpaController();
+            List<Disciplina> disciplinas = disciControll.getAllDisciplinas();
+
+            ProfessorJpaController profControll = new ProfessorJpaController();
+            List<Professor> professores = profControll.getAllProfessores();
+
+            request.setAttribute("listDisciplina", disciplinas);
+            request.setAttribute("listProfessor", professores);
+            RequestDispatcher page = request.getRequestDispatcher("administrador.jsp");
+            page.forward(request, response);
+        } else { // Erro de login
+            request.setAttribute("erroLogin", "Usuario ou senha inválidos.");
+            RequestDispatcher login = request.getRequestDispatcher("loginAdm.jsp");
+            login.forward(request, response);
+        }
     }
 
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
     @Override
     public String getServletInfo() {
         return "Short description";

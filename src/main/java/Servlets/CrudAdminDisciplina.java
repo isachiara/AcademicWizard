@@ -54,29 +54,7 @@ public class CrudAdminDisciplina extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        Disciplina d = new Disciplina();
-        DisciplinaJpaController dControl = new DisciplinaJpaController();
-        ProfessorJpaController pControl = new ProfessorJpaController();
-
-        Professor professor = (Professor) request.getAttribute("professor");
-
-        if (professor != null) {
-            d.setNome(request.getParameter("nome"));
-            d.setCargaHoraria(request.getParameter("carga"));
-            d.setHorario(request.getParameter("hora"));
-            d.setDias(request.getParameter("dias"));
-            d.setPeriodo(Integer.parseInt(request.getParameter("periodo")));
-            d.setRequisito(request.getParameter("disciplinas"));
-            d.setProfessorSiape(professor);
-            //d.setProfessorSiape(pControl.findProfessor(professor).get(0));
-            try {
-                dControl.create(d);
-                RequestDispatcher page = request.getRequestDispatcher("administrador");
-                page.forward(request, response);
-            } catch (Exception ex) {
-                Logger.getLogger(CrudAdminProfessor.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } 
+        
 
     }
 
@@ -91,7 +69,30 @@ public class CrudAdminDisciplina extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        Disciplina d = new Disciplina();
+        DisciplinaJpaController dControl = new DisciplinaJpaController();
+        ProfessorJpaController pControl = new ProfessorJpaController();
+
+        String professor = request.getParameter("professor");
+        Professor resultado = pControl.findProfessor(professor);
+
+        if (resultado != null) {
+            d.setNome(request.getParameter("nome"));
+            d.setCargaHoraria(request.getParameter("carga"));
+            d.setHorario(request.getParameter("hora"));
+            d.setDias(request.getParameter("dias"));
+            d.setPeriodo(Integer.parseInt(request.getParameter("periodo")));
+            d.setRequisito(request.getParameter("disciplina"));
+            d.setProfessorSiape(resultado);
+           
+            try {
+                dControl.create(d);
+                RequestDispatcher page = request.getRequestDispatcher("administrador");
+                page.forward(request, response);
+            } catch (Exception ex) {
+                Logger.getLogger(CrudAdminProfessor.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } 
     }
 
     /**

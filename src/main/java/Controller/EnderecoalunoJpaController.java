@@ -8,9 +8,11 @@ package Controller;
 import Controller.exceptions.IllegalOrphanException;
 import Controller.exceptions.NonexistentEntityException;
 import Controller.exceptions.RollbackFailureException;
+import DAOUtil.DAO;
 import Model.Aluno;
 import java.io.Serializable;
 import Model.Enderecoaluno;
+import Util.EntityManagerSingleton;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -23,12 +25,13 @@ import javax.persistence.TypedQuery;
  *
  * @author Henrique
  */
-public class EnderecoalunoJpaController implements Serializable {
+public class EnderecoalunoJpaController implements Serializable, DAO<Enderecoaluno> {
 
     private final static EntityManagerFactory EMF = Persistence.createEntityManagerFactory("AcademicPU");
 
+    @Override
     public EntityManager getEntityManager() {
-        return EMF.createEntityManager();
+        return EntityManagerSingleton.getInstance();
     }
 
     public void create(Enderecoaluno enderecoAluno) throws RollbackFailureException, Exception {
@@ -36,7 +39,7 @@ public class EnderecoalunoJpaController implements Serializable {
         EntityTransaction et = null;
 
         try {
-            em = EMF.createEntityManager();
+            em = getEntityManager();
             et = em.getTransaction();
 
             et.begin();
@@ -48,7 +51,7 @@ public class EnderecoalunoJpaController implements Serializable {
             }
         } finally {
             if (em != null) {
-                em.close();
+                //em.close();
             }
         }
     }
@@ -58,7 +61,7 @@ public class EnderecoalunoJpaController implements Serializable {
         EntityTransaction et = null;
 
         try {
-            em = EMF.createEntityManager();
+            em = getEntityManager();
             et = em.getTransaction();
 
             et.begin();
@@ -70,7 +73,7 @@ public class EnderecoalunoJpaController implements Serializable {
             }
         } finally {
             if (em != null) {
-                em.close();
+                //em.close();
             }
         }
     }
@@ -80,7 +83,7 @@ public class EnderecoalunoJpaController implements Serializable {
         EntityTransaction et = null;
 
         try {
-            em = EMF.createEntityManager();
+            em = getEntityManager();
             et = em.getTransaction();
 
             Enderecoaluno enderecoAlunoRemove = em.merge(enderecoAluno);
@@ -94,7 +97,7 @@ public class EnderecoalunoJpaController implements Serializable {
             }
         } finally {
             if (em != null) {
-                em.close();
+                //em.close();
             }
         }
     }
@@ -104,7 +107,7 @@ public class EnderecoalunoJpaController implements Serializable {
         try {
             return em.find(Enderecoaluno.class, id);
         } finally {
-            em.close();
+            //em.close();
         }
     }
 
@@ -115,7 +118,13 @@ public class EnderecoalunoJpaController implements Serializable {
         q.setParameter("aluno", aluno.getEnderecoaluno().getIdEndereco());
 
         Enderecoaluno resultado = (Enderecoaluno) q.getSingleResult();
+        //em.close();
         return resultado;
 
+    }
+
+    @Override
+    public Enderecoaluno find(Enderecoaluno entity) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

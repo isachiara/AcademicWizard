@@ -24,7 +24,7 @@
             width: 800px;
         }
         header {
-            font-family: monospace;
+            font-family: Marker Felt, fantasy;
             text-align: center;
             padding: 1em;
             color: white;
@@ -101,7 +101,7 @@
                 </div>
             </div>
             <footer> 10/05/2018 Versão 1.000
-                © 2018 AcademicWizard <a href="administrador">Administrador</a></footer>
+                © 2018 AcademicWizard <a href="loginAdmin">Administrador</a></footer>
         </div>
     </body>
 </html>

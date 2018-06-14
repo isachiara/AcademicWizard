@@ -9,6 +9,7 @@ import Controller.exceptions.IllegalOrphanException;
 import Controller.exceptions.NonexistentEntityException;
 import Controller.exceptions.PreexistingEntityException;
 import Controller.exceptions.RollbackFailureException;
+import DAOUtil.DAO;
 import java.io.Serializable;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
@@ -16,6 +17,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import Model.Administrador;
 import Model.Telefoneadministrador;
+import Util.EntityManagerSingleton;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -27,12 +29,13 @@ import javax.transaction.UserTransaction;
  *
  * @author Henrique
  */
-public class TelefoneadministradorJpaController implements Serializable {
+public class TelefoneadministradorJpaController implements Serializable, DAO<Telefoneadministrador> {
 
     private final static EntityManagerFactory EMF = Persistence.createEntityManagerFactory("AcademicPU");
 
+    @Override
     public EntityManager getEntityManager() {
-        return EMF.createEntityManager();
+        return EntityManagerSingleton.getInstance();
     }
 
     public void create(Telefoneadministrador telefoneAdministrador) throws RollbackFailureException, Exception {
@@ -40,7 +43,7 @@ public class TelefoneadministradorJpaController implements Serializable {
         EntityTransaction et = null;
 
         try {
-            em = EMF.createEntityManager();
+            em = getEntityManager();
             et = em.getTransaction();
 
             et.begin();
@@ -52,7 +55,7 @@ public class TelefoneadministradorJpaController implements Serializable {
             }
         } finally {
             if (em != null) {
-                em.close();
+               // em.close();
             }
         }
     }
@@ -62,7 +65,7 @@ public class TelefoneadministradorJpaController implements Serializable {
         EntityTransaction et = null;
 
         try {
-            em = EMF.createEntityManager();
+            em = getEntityManager();
             et = em.getTransaction();
 
             et.begin();
@@ -74,7 +77,7 @@ public class TelefoneadministradorJpaController implements Serializable {
             }
         } finally {
             if (em != null) {
-                em.close();
+               // em.close();
             }
         }
     }
@@ -84,7 +87,7 @@ public class TelefoneadministradorJpaController implements Serializable {
         EntityTransaction et = null;
 
         try {
-            em = EMF.createEntityManager();
+            em = getEntityManager();
             et = em.getTransaction();
 
             Telefoneadministrador telefoneAdmRemove = em.merge(telefoneAdm);
@@ -98,7 +101,7 @@ public class TelefoneadministradorJpaController implements Serializable {
             }
         } finally {
             if (em != null) {
-                em.close();
+              //  em.close();
             }
         }
     }
@@ -108,8 +111,13 @@ public class TelefoneadministradorJpaController implements Serializable {
         try {
             return em.find(Telefoneadministrador.class, id);
         } finally {
-            em.close();
+          //  em.close();
         }
     }
-    
+
+    @Override
+    public Telefoneadministrador find(Telefoneadministrador entity) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

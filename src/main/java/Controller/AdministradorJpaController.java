@@ -8,23 +8,27 @@ package Controller;
 import Controller.exceptions.IllegalOrphanException;
 import Controller.exceptions.NonexistentEntityException;
 import Controller.exceptions.RollbackFailureException;
+import DAOUtil.DAO;
 import Model.Administrador;
+import Util.EntityManagerSingleton;
 import java.io.Serializable;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 
 /**
  *
  * @author Henrique
  */
-public class AdministradorJpaController implements Serializable {
+public class AdministradorJpaController implements Serializable, DAO<Administrador> {
 
     private final static EntityManagerFactory EMF = Persistence.createEntityManagerFactory("AcademicPU");
 
+    @Override
     public EntityManager getEntityManager() {
-        return EMF.createEntityManager();
+        return EntityManagerSingleton.getInstance();
     }
 
     public void create(Administrador administrador) throws RollbackFailureException, Exception {
@@ -32,7 +36,7 @@ public class AdministradorJpaController implements Serializable {
         EntityTransaction et = null;
 
         try {
-            em = EMF.createEntityManager();
+            em = getEntityManager();
             et = em.getTransaction();
 
             et.begin();
@@ -44,7 +48,7 @@ public class AdministradorJpaController implements Serializable {
             }
         } finally {
             if (em != null) {
-                em.close();
+                //em.close();
             }
         }
     }
@@ -54,7 +58,7 @@ public class AdministradorJpaController implements Serializable {
         EntityTransaction et = null;
 
         try {
-            em = EMF.createEntityManager();
+            em = getEntityManager();
             et = em.getTransaction();
 
             et.begin();
@@ -66,7 +70,7 @@ public class AdministradorJpaController implements Serializable {
             }
         } finally {
             if (em != null) {
-                em.close();
+                // em.close();
             }
         }
     }
@@ -76,9 +80,8 @@ public class AdministradorJpaController implements Serializable {
         EntityTransaction et = null;
 
         try {
-            em = EMF.createEntityManager();
+            em = getEntityManager();
             et = em.getTransaction();
-
             Administrador admRemove = em.merge(adm);
 
             et.begin();
@@ -90,7 +93,7 @@ public class AdministradorJpaController implements Serializable {
             }
         } finally {
             if (em != null) {
-                em.close();
+                // em.close();
             }
         }
     }
@@ -100,8 +103,27 @@ public class AdministradorJpaController implements Serializable {
         try {
             return em.find(Administrador.class, id);
         } finally {
-            em.close();
+            //em.close();
         }
     }
-    
+
+    @Override
+    public Administrador find(Administrador entity) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public boolean findAdm(String usuario, String senha) {
+        EntityManager em = getEntityManager();
+        Query q = em.createQuery("SELECT a FROM Administrador a WHERE a.usuario = ?1 AND a.senha = ?2", Administrador.class);
+        q.setParameter(1, usuario);
+        q.setParameter(2, senha);
+         if (q.getSingleResult() == null) {
+            return false;
+        }
+        Administrador adm = (Administrador) q.getSingleResult();
+        //em.close();
+       
+        return true;
+    }
+
 }

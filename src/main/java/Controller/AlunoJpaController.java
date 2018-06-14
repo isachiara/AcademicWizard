@@ -8,7 +8,9 @@ package Controller;
 import Controller.exceptions.IllegalOrphanException;
 import Controller.exceptions.NonexistentEntityException;
 import Controller.exceptions.RollbackFailureException;
+import DAOUtil.DAO;
 import Model.Aluno;
+import Util.EntityManagerSingleton;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,12 +25,13 @@ import javax.persistence.TypedQuery;
  *
  * @author Henrique
  */
-public class AlunoJpaController implements Serializable {
+public class AlunoJpaController implements Serializable, DAO<Aluno> {
 
     private final static EntityManagerFactory EMF = Persistence.createEntityManagerFactory("AcademicPU");
 
+    @Override
     public EntityManager getEntityManager() {
-        return EMF.createEntityManager();
+        return EntityManagerSingleton.getInstance();
     }
 
     public void create(Aluno aluno) throws RollbackFailureException, Exception {
@@ -36,8 +39,8 @@ public class AlunoJpaController implements Serializable {
         EntityTransaction et = null;
 
         try {
-            em = EMF.createEntityManager();
-            et = em.getTransaction();
+            em = getEntityManager();
+            et = em.getTransaction();;
 
             et.begin();
             em.persist(aluno);
@@ -48,7 +51,7 @@ public class AlunoJpaController implements Serializable {
             }
         } finally {
             if (em != null) {
-                em.close();
+                // em.close();
             }
         }
     }
@@ -58,7 +61,7 @@ public class AlunoJpaController implements Serializable {
         EntityTransaction et = null;
 
         try {
-            em = EMF.createEntityManager();
+            em = getEntityManager();
             et = em.getTransaction();
 
             et.begin();
@@ -70,7 +73,7 @@ public class AlunoJpaController implements Serializable {
             }
         } finally {
             if (em != null) {
-                em.close();
+                // em.close();
             }
         }
     }
@@ -80,7 +83,7 @@ public class AlunoJpaController implements Serializable {
         EntityTransaction et = null;
 
         try {
-            em = EMF.createEntityManager();
+            em = getEntityManager();
             et = em.getTransaction();
 
             Aluno alunoRemove = em.merge(aluno);
@@ -94,7 +97,7 @@ public class AlunoJpaController implements Serializable {
             }
         } finally {
             if (em != null) {
-                em.close();
+                //   em.close();
             }
         }
     }
@@ -106,13 +109,21 @@ public class AlunoJpaController implements Serializable {
                 "SELECT a FROM Aluno a WHERE a.matricula LIKE ?1 AND a.senha LIKE ?2", Aluno.class);
         query.setParameter(1, Matricula);
         query.setParameter(2, Senha);
-        
+
+        if(query.getSingleResult()==null){
+            return null;
+        }
         aluno = (Aluno) query.getSingleResult();
-        em.clear();
-        em.close();
-        
+//        em.flush();
+        //em.close();
+
         return aluno;
 
+    }
+
+    @Override
+    public Aluno find(Aluno entity) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

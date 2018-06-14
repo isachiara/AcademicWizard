@@ -86,7 +86,7 @@
             <header>Bem vindo Aluno!</header>
             <nav><ul id="menu">
                     <li id="menuItem"><a class="active" href="perfilAluno.jsp">Home</a></li>
-                    <li id="menuItem"><a href="matricula" action="get">Matriculas</a></li>
+                    <li id="menuItem"><a href="MatriculaDisciplina" method="get">Matriculas</a></li>
                     <li id="menuItem"><a href="disciplinas">Lista Disciplinas</a></li>
                     <li id="menuItem"><a href="editarAluno" action="get">Editar informações</a></li>
                     <li id="menuItem" style="float:right"><a class="active" href="Logout">Deslogar</a></li>
